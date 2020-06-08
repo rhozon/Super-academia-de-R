@@ -1,0 +1,3117 @@
+\documentclass{article}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[utf8]{inputenc}
+\usepackage{lscape}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{tikz}
+\newcommand{\roundpic}[4][]{
+  \tikz\node [circle, minimum width = #2,
+    path picture = {
+      \node [#1] at (path picture bounding box.center) {
+        \includegraphics[width=#3]{#4}};
+    }] {};}
+    
+\usepackage{indentfirst}
+\usepackage[a4paper,margin={1.2in,1.5in},vmargin={1.2in,1.5in}]{geometry}
+\geometry{paperwidth=210mm,paperheight=297mm,
+textwidth=150mm,textheight=210mm,
+top=23mm,bottom=23mm,
+left=23mm,right=23mm}
+\usepackage[colorlinks,linkcolor=blue,hyperindex]{hyperref}
+\usepackage[brazil]{babel}
+\usepackage{graphicx,color,wrapfig}
+\usepackage{multicol}
+%\usetikzlibrary{mindmap}
+%\pagestyle{empty}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[]{}
+\rhead{Superacademia de \faRProject com o \LaTeX}
+\fancyfoot[]{}
+\renewcommand{\headrulewidth}{0.1pt}
+\usepackage{color,soul}
+\usepackage{color}
+\usepackage{listings}%pacote para literalizar os códigos do R no Latex
+\usepackage{xcolor}
+
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{mygray}{gray}{0.9}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{mygray},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+%=========fim da instrução do listings
+\usepackage{xcolor}
+\usepackage[fixed]{fontawesome5}
+\usepackage{tcolorbox}
+\usepackage{comment}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{MyFrame}{%
+    linecolor=blue,
+    outerlinewidth=1pt,
+    roundcorner=40pt,
+    innertopmargin=\baselineskip,
+    innerbottommargin=\baselineskip,
+    innerrightmargin=10pt,
+    innerleftmargin=10pt,
+    backgroundcolor=gray!50!white}
+%============================================================
+%========================================================
+\begin{document}
+
+
+%============================================================
+
+\title{Super Academia \faRProject - Linguagem R, R Markdown e R Shiny juntos!}
+\author{\href{https://rhozon.github.io/}{Rodrigo Hermont Ozon\footnote{Economista e Mestre em Desenvolvimento Econômico pela UFPR.}}}
+\date{Maio, 2020}
+
+\maketitle
+
+
+
+
+\thispagestyle{empty}
+%===========================================================
+\newpage
+
+\begin{mdframed}[style=MyFrame]
+
+\fbox{%
+\roundpic[xshift=-.00000095cm,yshift=-.0006cm]{3.8cm}{3cm}{me.jpg}%
+}
+
+
+\section*{Sobre o Autor:}
+
+
+\textit{Rodrigo Hermont Ozon, economista e apaixonado por econometria, pelas aplicações de modelos econômicos a problemas reais e cotidianos vivenciados na sociedade e na realidade das empresas.}
+
+
+\begin{flushleft}
+Seus contatos podem ser acessados em:
+
+\begin{itemize}
+\item \href{https://rhozon.github.io/}{\faGithub} \href{https://rhozon.github.io/}{Github}
+
+\item \href{https://www.linkedin.com/in/rodrigohermontozon/}{\faLinkedin} \href{https://www.linkedin.com/in/rodrigohermontozon/}{Linkedin} %
+\end{itemize}
+\end{flushleft}
+
+
+\end{mdframed}
+
+\vspace{9cm}
+
+
+\begin{abstract}
+    Link do curso do prof. Grimaldo no udemy \href{https://www.udemy.com/course/super-academia-r/learn/lecture/19576502#overview}{Super Academia R - Linguagem R, R Markdown e R Shiny juntos!}
+\end{abstract}
+
+
+
+
+\thispagestyle{empty}
+%==============================================================
+\newpage
+
+.
+
+\vspace{22cm}
+À minha amada esposa, Idiane \textit{"Porque sou eu que conheço os planos que tenho para vocês", diz o Senhor, "planos de fazê-los prosperar e não de lhes causar dano, planos de dar-lhes esperança e um futuro."}
+
+\vspace{.15cm}
+\hspace{13cm}\href{https://www.bibliaonline.com.br/nvi/jr/29/11}{Jeremias 29:11}
+
+\thispagestyle{empty}
+
+%==========================================================
+
+\newpage
+\tableofcontents
+\lstlistoflistings
+\listoffigures
+
+
+
+%\hspace{12cm}\includegraphics[widht=1.5cm,height=1.5cm]{erasmussign.png}
+\thispagestyle{headings}
+
+\newpage
+%====================================================
+
+
+\section{Linguagem \faRProject Operações com Dados}
+\subsection{2. R-Studio, Trabalhando com operações básicas, Help do R, Trabalahndo com vetores}
+
+<<>>=
+4+5+6
+5+7*8+5
+16/2-3
+7*5**6
+@
+
+A operação de potência é indicada por **. Alternativamente pode-se usar o símbolo $^$, por exemplo $5*7^2$ produziria o mesmo resultado que $5*7**2$.
+
+<<>>=
+sqrt(64)
+sin(4.556765)
+log(10)
+
+@
+
+
+<<>>=
+help.search("sin")
+??sin
+RSiteSearch("sin")
+@
+
+<<>>=
+dados <- sin(4.5)
+dados
+@
+
+<<>>=
+dado1=sin(4.7)
+dado1
+@
+
+<<>>=
+var1=656*767
+var2= sqrt(7687)
+var3=var2-var1
+var3
+@
+
+<<>>=
+c(99,0,-3)/0
+@
+
+Dá pau com divisão por zero!
+
+<<>>=
+cidade=c("salvador","recife","pernambuco","maceio","natal")
+lenght(cidade) #a funcao lenght da o tamanho do vetor criado
+populacao=c(15000,20000,30000,17000,23000)
+sum(populacao)
+max(populacao)
+min(populacao)
+numero_elementos.cidade=length(cidade)
+numero_elementos.cidade
+media.cidade=sum(populacao)/numero_elementos.cidade
+media.cidade
+mean(populacao)
+@
+
+
+<<>>=
+num1=(1:40)#Cria uma contagem de lista de numeros de 1 ate 40
+num1
+
+
+num2=seq(10,100,by=5) #Executa a sequencia de 10 ate 100,
+#saltando de 5 em 5.
+num2
+
+num3=(num2>40)#Comando que exibe a informacao
+#de TRUE ou FALSE caso o valor 
+#contido no vetor num3 seja maior que 40.
+num3
+
+num2[num2>40]#Comando que exibe a 
+#informacao dos valores maiores que
+#quarenta, caso o valor contido
+#no vetor num2 seja maior que 40.
+
+num4=rep(10,50)#Comando repete o numero 10 cinquenta vezes.
+num4
+@
+
+
+<<>>=
+num5=rep(c(10,12),c(4,7))#Comando que repete o 
+#numero 10 quatro vezes e o
+#numero 12 sete vezes.
+num5
+
+num6=c(7,num5)#Podemos acrescentar um 
+#determinado dado ao vetor no início dos dados.
+num6
+
+num7=c(num5,78)#Podemos acrescentar um
+#determinado dado ao vetor no final dos dados.
+num7
+
+num_palavra=c("bahia",num5)#Podemos mesclar um 
+#determinado dado caracter ao vetor, 
+#mesmo que este só tenha dados numericos,
+#mas este vetor passará de numérico para um vetor caracter.
+num_palavra
+
+num8=num6 + 2:13#Podemos realizar somatórios,
+#produtorios ou qualquer outro cálculo
+#sequencialmente com o vetor.
+num8
+
+rep(5:9, each = 3) #Podemos repetir determinados elementos 
+#uma quantidade especifica de vezes.
+
+
+rep(5:9,3) #Podemos repetir uma sequencia de dados 
+#uma quantidade especifica de vezes.
+
+
+num6[1:4] #Exibe apenas os quatro primeiros elementos de um vetor.
+
+
+@
+
+
+
+
+<<>>=
+
+amostra <- round(rnorm(10, m = 400, sd = 30))#Exibe uma amostra extraida de
+#uma distribuição normal de media 400 e desvio padrao 30.
+amostra
+
+rev(amostra)#Exibe os dados do vetor amostra ao contrário.
+
+sort(amostra)#Exibe os dados do vetor amostra em order ascendente.
+
+order(amostra)#Exibe os dados do vetor amostra 
+#com os seus respectivos rank´s.
+
+which(amostra<400)#Retorna as posicoes especificas 
+#do vetor que obedecem a um determinado critério.
+
+amostra[-2]#Para a eliminacao de um determinado
+#dado dentro de um vetor, basta colocar a posicao 
+#deste entre parenteses.
+@
+
+
+\subsection{4. Trabalhando com matrizes}
+
+
+Matrizes são objetos criados a partir da utilização de elementos de um vetor em linhas e colunas. A seleção de elementos, as chamadas submatrizes, são realizadas usando o símbolo de $[,]$. Perceba uma diferença entre vetores e matrizes que consiste na separação entre seus elementos em linhas e colunas utilizando a vírgula, antes da vírgula indica-se a(s) linha(s) e depois a(s) coluna(s) a serem selecionadas. Cada um destes componentes da matriz é um vetor de nomes.
+Vamos trabalhar com algumas funções utilizando matrizes.
+
+
+Para criar uma matriz, que inicialmente carrega dados default, basta utilizar o comando matrix. O primeiro argumento da função matrix diz respeito à quantidade de dados, a segunda opção informará a quantidade de colunas em uma determinada matriz, note que automaticamente é estabelecida a quantidade de linhas, sempre deve ser múltiplo a quantidade de dados/número de colunas.
+
+<<>>=
+amostra2=matrix(1:10, ncol = 5)
+amostra2
+
+amostra3=matrix(1:10, ncol = 5, byrow = T) #Caso deseje o contrario,
+#que a disposição dos elementos seja registrada 
+#nas colunas, utilize o argumento byrow.
+
+amostra3
+
+length(amostra2) #Caso deseje saber a quantidade de 
+#elementos em uma determinada matriz.
+
+dim(amostra2) #Quantas linhas e colunas ha em uma determinada matriz.
+
+nrow(amostra2) #Quantas linhas há em uma determinada matriz.
+
+ncol(amostra2) #Quantas colunas há em uma determinada matriz.
+
+amostra2[2,3] #Caso voce deseje acessar um determinado
+#elemento, basta colocar entre [] o numero da linha e da coluna.
+
+amostra2[,3] #Quais sao os elementos de uma determinada coluna.
+
+amostra2[1,] #Quais são os elementos de uma determinada linha.
+
+amostra2[1:2,2:4] #Caso voce deseje acessar ao mesmo tempo 
+#linhas e colunas. Note que os valores são reorganizados
+#dinamicamente, mas a matriz amostra2 permanece de forma intacta.
+
+dimnames(amostra2) <- list(c("Linha1", "Linha2"), c("Coluna1", "Coluna2", "Coluna3", "Coluna4","Coluna5"))#Caso voce deseje alterar as nomenclaturas padrao da matriz, 
+#isso pode ser realizado através do comando dimnames.
+
+amostra2
+
+#Caso voce deseje incluir determinados valores em uma matriz com duas colunas, utilize o comando cbind.
+#O numero maior de elementos na entrada de argumentos cbind(1 argumento, 2 argumento) definirá a quantidade de elementos.
+
+amostra3 <- cbind(1:3, 10:15)
+amostra3
+
+#Soma dos elementos das linhas da matriz, funções apply ou rowSums.
+apply(amostra2, 1, sum)
+rowSums(amostra2)
+
+
+#Soma dos elementos das colunas da matriz, funções apply ou colSums.
+apply(amostra2, 2, sum)
+colSums(amostra2)
+
+colMeans(amostra2)#Média dos elementos da coluna de uma matriz.
+
+rowMeans(amostra2)#Média dos elementos da linha de uma matriz.
+
+#Soma dos elementos de uma matriz mais outra matriz.
+amostra2+amostra3
+
+#Produto entre os elementos de uma matriz por outra matriz.
+amostra2*amostra3
+
+amostra3-amostra2#Subtração entre os elementos de uma matriz pela outra matriz.
+
+
+
+@
+
+
+
+\subsection{5. Data Frame, Listas, Trabalhando com Workspace, Funções, Trabalhando com Pacotes}
+
+Data Frames A diferença básica entre data frames e matrizes é que utilizando o objeto matriz, você só pode ter colunas do mesmo tipo (numéricas, caracteres), no caso de data frames, você pode ter um tipo diferente para cada coluna.
+
+<<>>=
+#Criamos dois vetores, um numerico e outro caractere.
+#A única forma de juntar é através de data frame.
+d1=c(4,5,6,7,8,9)
+d2=c("a","b","c","d","e","f")
+data.frame(d1,d2)
+@
+
+
+Listas
+A lista é caracterizada por ser genérica e pode armazenas diversos formatos diferentes de dados em um único objeto, é um conjunto de objetos.
+
+<<>>=
+#Criamos uma lista com três diferentes tipos.
+lista1 <- list(A = 1:5, B = "SALVADOR CAPITAL DA FELICIDADE", C = matrix(1:4,ncol = 4))
+lista1
+
+#Para listar um objeto que pertence a uma lista, 
+#basta colocar entre colchetes.
+lista1[2]
+
+#Para listar os elementos que estão dentro de um
+#determinado objeto que pertence a uma lista, 
+#basta colocar entre duplos colchetes.
+lista1[[2]]
+@
+
+
+Funções
+É o que é mais comum utilizado na ferramenta R, o uso de funções é através de seu nome, basta digitar para saber seu conteúdo. É um programa criado para resolver uma determinada tarefa.
+
+<<>>=
+plot
+
+
+
+@
+
+Workspace do R(Área de Trabalho)
+Sempre que você abrir a ferramenta R para trabalhar, esta armazena temporariamente todas as saídas de objetos e seus conteúdos, é a chamada Workspace ou Área de Trabalho. Para que você mantenha tudo que foi feita na sessão que está trabalhando, você deve salvá-la. Você pode digitar o comando save.image ou salvar diretamente no R Studio, que é a forma mais fácil. Ao salvar a workspace, o arquivo terá um ícone do R na pasta que você gravou, a partir do qual você irá abrir o R. Vamos praticar as duas formas:
+
+<<>>=
+#Digitando o comando:
+save.image("E:/Grimaldo/Aprenda Virtual/Curso EAD/Aula R/Curso R.RData")
+
+#Acesse o menu do R studio.
+
+#Pronto, tudo que você fez nesta sessão não será mais perdido.
+#Quando quiser utilizar todos os objetos que foram salvos 
+#nesta sessão, basta utilizar o comando Load ou através do menu,
+#escolha a opção Load.
+#1) Utilizando a digitação do comando Load.
+load("E:/Grimaldo/Aprenda Virtual/Curso EAD/Aula R/Curso R.RData")
+#2) Acesse o menu do R studio.
+
+@
+
+
+\textbf{8. Pacote do R}
+
+O programa R é composto por uma quantidade mínima de estruturas, pois o entendimento é que você quando desejasse uma estrutura mais avançada, poderá ir até o site do Projeto R e baixar o programa, os chamados pacotes.
+
+O R é dividido em 3 partes:
+
+1) O R-base, que contém as funções principais disponíveis quando iniciamos o programa.
+
+2) Possui os pacotes recomendados (recommended packages) que são instalados junto com o R-base mas não são carregados quando iniciamos o programa. Por exemplo o pacote MASS – e há vários outros. Para usar as funções que estão dentro dos pacotes deve-se carregá-los antes com o comando library(). Por exemplo o comando library(MASS) carrega o pacote MASS.
+
+3) E por último os pacotes contribuídos (contributed packages) não são instalados junto com o R-base. Estes pacotes disponívies na página do R são pacotes oficiais.
+
+Estes pacotes adicionais fornecem funcionalidades específicas e para serem utilizados devem ser copiados, instalados e carregados. Para ver a lista deste pacotes com uma descrição de cada um deles acesse a página do R e siga os links para CRAN e Package Sources.
+Antes que você instale um pacote você pode ver se ele já está instalado/disponível no seu computador. Para isto digite o comando:
+
+<<>>=
+require(NOME_DO_PACOTE) #verifica se o pacote ja esta instalado
+install.packages(<nome_pacote>)#instala o pacote
+
+#Todo o pacote tem as chamadas citações, 
+#para que você possa colocar em seus projetos de pesquisa, 
+#basta executar o comando citation().
+citation("bethel")
+@
+
+\newpage
+\subsection{6. Leitura de arquivos externos, Sumarizando Dados (medidas estatísticas)}
+
+
+<<>>=
+#Dah pra subir os dados a partir de um .csv p.ex.
+xdata = read.csv(file="Empresas-Arquivo1.csv", head=TRUE,sep=";")
+
+xdata
+
+#Lendo urls da web: Esse aqui eh do Paulo Jus 
+#http://www.leg.ufpr.br/~paulojus/dados/gam01.txt
+gam01<- read.table(file="gam01.txt")
+str(gam01)
+summarise(gam01)
+head(gam01)
+
+#Lendo um dataset de exemplo
+data()
+
+#Para ler bds externos veja
+help(foreign)
+??foreign
+
+@
+
+Para a leitura de dados em banco de dados, é necessário a instalação do \fbox{pacote RODBC}, basta digitar o comando \fbox{install.packages('RODBC')}, que será instalada as bibliotecas de leituras ODBC, igual a qualquer sistema de banco de dados.
+
+Vejamos um exemplo de leitura de dados de uma base de dados qualquer:
+\begin{lstlisting}[language=R, caption=Conexão com BD´s externos]
+myconn <-odbcConnect("fornecedor", uid="fornec", pwd="34rt#yt") vendedorbd <- sqlFetch(myconn, Vendedor) produtosbd <- sqlQuery(myconn, "select * from Produto where Produto.totestoque>20") close(myconn)
+
+\end{lstlisting}
+
+<<>>=
+install.packages("RODBC")
+myconn <-odbcConnect("fornecedor", uid="fornec", pwd="34rt#yt")
+# uid="fornec" usuario e pwd="32rt#yt" eh a senha para acessar o bd
+
+vendedorbd <- sqlFetch(myconn, Vendedor) produtosbd <- sqlQuery(myconn, "select * from Produto where Produto.totestoque>20") 
+#Comando sqlFetch faz a leitura dos dados
+
+produtosbd <- sqlQuery(myconn, "select * from Produto where Produto.totestoque>20")
+
+close(myconn)#fecha a conexao com o bd
+@
+
+
+\textbf{10. Sumarizando Dados}
+
+Iniciaremos uma das atividades mais comuns na ferramenta R, a sumarização de um conjunto de dados, corriqueiramente faremos a operação básica de :
+
+\begin{enumerate}
+    \item Ler um arquivo
+    \item Sumarizar seus dados
+    \item Interpretar seus resultados
+\end{enumerate}
+
+<<>>=
+vendas2 = read.csv(file="Vendas-Arquivo2.csv", head=TRUE,sep=";")
+
+head(vendas2)
+str(vendas2)
+
+
+#Podemos nos perguntar quais sao as filiais 
+#que vendem produtos de uma determinada 
+#empresa (variável filial):
+
+table(vendas2$FILIAL) 
+
+#Podemos criar uma variavel que da 10 por cento de desconto
+vendas2$DESCONTO=vendas2$VALOR*0.1
+head(vendas2)
+
+#Podemos cruzar as variáveis, buscando uma contagem cruzada.
+table(vendas2$FILIAL,vendas2$PRODUTO)
+
+
+#Podemos apresentar a distribuicao de frequencia relativa. 
+#Vejamos qual eh o produto e filial que mais possuem vendas.
+
+tabela= table(vendas2$FILIAL,vendas2$PRODUTO)
+tabela.relativa = tabela/nrow(vendas2)
+tabela.relativa
+
+#Agora apresentando em percentual multiplicado por 100
+tabela.relativa = tabela/nrow(vendas2) * 100
+tabela.relativa
+@
+
+\newpage
+
+<<>>=
+#Existe uma funcao chamada de tappy que facilita a aplicacao de
+#uma determinada funcao aplicando em todos os dados, de acordo 
+#com um grupo especifico, será tapply(dados, grupos, função).
+#Calcularemos a media e o somatorio de todos os pesos 
+#em gramas por cada filial.
+
+tapply(vendas2$PESOGRAMAS,vendas2$FILIAL,mean)
+
+tapply(vendas2$PESOGRAMAS,vendas2$FILIAL,sum)
+
+
+#Existe uma função chamada de summary retorna um 
+#conjunto de estatísticas descritivas (sumário) de
+#todas as variáveis de um determinado data frame conforme o seu tipo.
+
+summary(vendas2$PESOGRAMAS)
+
+ mean(vendas2$PESOGRAMAS) # Média
+
+ median(vendas2$PESOGRAMAS) # Mediana
+
+min(vendas2$PESOGRAMAS) # Mínimo
+
+max(vendas2$PESOGRAMAS) # Máximo
+
+range(vendas2$PESOGRAMAS) # Máximo - Mínimo (Amplitude)
+
+quantile(vendas2$PESOGRAMAS) # Quartis
+
+IQR(vendas2$PESOGRAMAS) # Índice Interquartil.(Q75%-Q25%)
+
+var(vendas2$PESOGRAMAS) # Variância
+
+sd(vendas2$PESOGRAMAS) # Desvio-Padrão
+
+mad(vendas2$PESOGRAMAS) # Desvio Absoluto Mediano
+
+
+@
+
+\subsection{7. Gráficos no R: Histograma, Box-Plot, Ramo e Folhas, Barras, Setores}
+
+Selecionando Dados
+Agora na parte de manipulação de dados, vamos especificamente trabalhar com conectores lógicos que nos ajudarão na seleção de determinados dados, muito importante na manipulação de qualquer dado.
+Vamos primeiro aprender quais são os conectores lógicos que facilitam a seleção de dados:
+
+% Table generated by Excel2LaTeX from sheet 'Plan1'
+\begin{table}[htbp]
+  \centering
+  \caption{Tabela básica de conectores lógicos}
+    \begin{tabular}{ll}
+    \hline\hline
+    CONECTOR & SIGNIFICADO \\
+    \hline\hline
+    $>$     & Maior \\
+    $<$     & Menor \\
+    $>=$    & Maior ou igual \\
+    $<=$    & Menor ou igual \\
+    $==$    & Igualdade \\
+    $!=$    & Diferente \\
+    \&      & E \\
+    $|$     & Ou \\
+    \hline\hline
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+Agora vamos utilizar um comando que já conhecemos o \fbox{which}, lembrasse? Ele irá selecionar as posições de acordo com a condição que criarmos, depois utilizaremos o $[\,\,]$ que é a forma de traduzir posição em dados, vejamos:
+
+Inicialmente vamos mostrar apenas as posições de uma determinada seleção de dados.
+
+<<>>=
+which(vendas2$FILIAL=="Salvador")#a partir do 78º é Recife, por isso ele mostra até o 77º
+@
+
+Agora para exibir o conteúdo em cada uma destas posições, utilize o $[\,\,]$, lembre-se estamos em um arquivo de dados então o comando $[\,\,]$ necessita que você determine se a seleção será em linha ou coluna, no nosso caso são as linhas, então deveremos acrescentar a “,” para esta informação.
+
+<<>>=
+#Apresenta o conteúdo dos dados de vendas onde tem Filial=Salvador
+vendas2[which(vendas2$FILIAL=="Salvador"),]
+
+@
+\newpage
+
+<<>>=
+#Mostra as vendas onde filial é 
+#diferente de Salvador
+vendas2[which(vendas2$FILIAL!="Salvador"),] 
+
+#Mostra as vendas onde produto
+#É boneca na filial Salvador
+vendas2[which(vendas2$FILIAL=="Salvador" & vendas2$PRODUTO=="Boneca"),] 
+
+#Mostra as vendas onde produto é boneca OU em Salvador
+vendas2[which(vendas2$FILIAL=="Salvador" | vendas2$PRODUTO=="Boneca"),]
+
+
+#Mostra as vendas onde o peso>=210 e =< 310
+vendas2[which(vendas2$PESOGRAMAS>=210 & vendas2$PESOGRAMAS<=310),]
+
+@
+
+Vamos selecionar apenas uma coluna, com um determinado critério e listaremos na tela, mas precisaremos alterar a quantidade de linhas impressas, utilize o comando abaixo:
+
+<<>>=
+#Mostre todos os que são >=210 e <=250 em peso mas somente as 1000 primeiras linhas
+options(max.print=5.5E5)
+
+sort(head(vendas2[which(vendas2$PESOGRAMAS>=210 & vendas2$PESOGRAMAS<=250),]$PESOGRAMAS,n=1000L))
+
+@
+Para colocar todo o data frame em ordem, como exemplo pelo peso em gramas, faça o seguinte:
+
+
+<<>>=
+ordem.vendas=order(vendas2$PESOGRAMAS)
+vendas2[ordem.vendas,]
+
+#Para colocar em ordem decrescente o data frame 
+#para o atributo peso em gramas, faça o seguinte:
+
+vendas2[order(vendas2$PESOGRAMAS,decreasing=TRUE),]
+
+
+@
+
+\newpage
+
+Outra forma de se selecionar (filtrar) dados é através do comando \fbox{ifelse} que permite tomar uma ação de acordo com uma condição específica, \fbox{IF} significa \fbox{SE} e \fbox{ELSE} significa SENÃO.
+Vamos a um exemplo:
+
+<<>>=
+#Se as vendas forem >90 então acima das expectativas, caso contrario abaixo
+resultado<-ifelse(vendas2$VALOR>90,"acima das expectativas","abaixo das expectativas") 
+
+table(resultado)
+
+#Podemos fazer tb um se e...usando o operado &
+
+resultado=ifelse(vendas2$VALOR>90&vendas2$PESOGRAMAS>200,"acima","abaixo")
+table(resultado)
+@
+
+\textbf{Gráficos}
+
+O \faRProject possui um ambiente de trabalho rico para geração de gráficos de diversos tipos, podem gerar gráficos de duas formas:
+
+\begin{itemize}
+    \item Gráficos para análise de dados: são gráficos que permitam visualizar o mais claro possível os padrões presentes nos dados. Esses gráficos disponibilizados de forma rápida no R e as formas de construí-los permitem inúmeras interações com os elementos de informação nos gráficos.
+    \item Gráficos prontos para apresentação: Gráficos de apresentação são mais elaborados. Sua construção no R exige mais tempo e conhecimento, pois o R não oferece recursos interativos para manipular os elementos picturais dos gráficos.
+
+\end{itemize}
+
+Vamos iniciar com gráficos simples de análise de dados:
+
+\newpage
+
+\textbf{Histogramas}
+
+
+Um dos gráficos mais utilizados em estatística, facilita a exibição de qual função de densidade estamos analisando.
+
+\begin{itemize}
+    \item Geração de gráfico comum do histograma
+\end{itemize}
+
+<<plot1, fig.pos="h", fig.height=6, fig.width=6, fig.cap="Primeiro Gráfico">>=
+hist(vendas2$PESOGRAMAS)
+
+@
+
+\newpage
+
+
+<<plot2, fig.pos="h", fig.height=6, fig.width=6, fig.cap="Segundo Gráfico">>=
+hist(vendas2$PESOGRAMAS,col="blue")
+
+@
+
+\newpage
+<<plot3, fig.pos="h", fig.height=6, fig.width=6, fig.cap="3 Gráfico">>=
+#Histograma com a linha da densidade
+hist(vendas2$PESOGRAMAS, probability=T,col="blue" )
+lines(density(vendas2$PESOGRAMAS) , col="red")
+
+@
+
+
+\newpage
+\textbf{Ramo e Folha}
+
+
+É um gráfico de tipo texto muito utilizado na estatística descritiva.
+
+
+<<>>=
+#Distribuição ramo e folhas
+stem(vendas2$PESOGRAMAS)
+
+@
+
+
+\newpage
+<<plot4, fig.pos="h", fig.height=6, fig.width=6, fig.cap="4 Gráfico">>=
+
+boxplot(vendas2$PESOGRAMAS)
+
+@
+
+
+<<plot5, fig.pos="h", fig.height=6, fig.width=6, fig.cap=" Gráfico">>=
+boxplot( PESOGRAMAS ~ PRODUTO, data=vendas2 )
+@
+
+Obs: Caso deseje aumentar a janela do gráfico, basta setar as informações na função par.
+
+<<>>=
+par( mar=c(5,4,4,2) )
+@
+
+\newpage
+
+\textbf{Gráfico de Dispersão}
+
+
+Sempre que desejar criar um gráfico para entender a relação entre duas variáveis, utilize primeiro o gráfico de dispersão, veja como é simples:
+
+*Veja o help do \faRProject para consultar as opções da função scatter.smooth
+
+<<>>=
+example(scatter.smooth)
+@
+
+
+\newpage
+
+<<plot6, fig.pos="h", fig.height=6, fig.width=6, fig.cap="6 Gráfico">>=
+
+plot( vendas2$PESOGRAMAS, vendas2$VALOR )
+@
+\newpage
+<<plot7, fig.pos="h", fig.height=6, fig.width=6, fig.cap="7 Gráfico">>=
+
+scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR)
+@
+\newpage
+<<plot8, fig.pos="h", fig.height=6, fig.width=6, fig.cap="8 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "h", col = "red")
+@
+\newpage
+ <<plot9, fig.pos="h", fig.height=6, fig.width=6, fig.cap="9 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "l", col = "red")
+@ 
+\newpage
+<<plot10, fig.pos="h", fig.height=6, fig.width=6, fig.cap="10 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "p", col = "red")
+@ 
+\newpage
+<<plot11, fig.pos="h", fig.height=6, fig.width=6, fig.cap="11 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "b", col = "red")
+@ 
+\newpage
+<<plot12, fig.pos="h", fig.height=6, fig.width=6, fig.cap="12 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "c", col = "red")
+@ 
+\newpage
+<<plot13, fig.pos="h", fig.height=6, fig.width=6, fig.cap="13 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "s", col = "red")
+@ 
+\newpage
+<<plot14, fig.pos="h", fig.height=6, fig.width=6, fig.cap="14 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "S", col = "red")
+@ 
+\newpage
+<<plot15, fig.pos="h", fig.height=6, fig.width=6, fig.cap="15 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "n", col = "red")
+@ 
+\newpage
+<<plot16, fig.pos="h", fig.height=6, fig.width=6, fig.cap="16 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "n", col = "red",main="babab")
+@ 
+\newpage
+<<plot17, fig.pos="h", fig.height=6, fig.width=6, fig.cap="17 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "n", col = "red",main="PLOTE DOS DADOS")
+@ 
+\newpage
+<<plot18, fig.pos="h", fig.height=6, fig.width=6, fig.cap="18 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "p", col = "red",main="PLOTE DOS DADOS")
+@ 
+\newpage
+<<plot19, fig.pos="h", fig.height=6, fig.width=6, fig.cap="19 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "p", col = "red",main="PLOTE DOS DADOS",lwd=10)
+@ 
+\newpage
+<<plot20, fig.pos="h", fig.height=6, fig.width=6, fig.cap="20 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "p", col = "red",main="PLOTE DOS DADOS",lwd=50)
+@ 
+\newpage
+<<plot21, fig.pos="h", fig.height=6, fig.width=6, fig.cap="21 Gráfico">>=
+ scatter.smooth( vendas2$PESOGRAMAS, vendas2$VALOR,type = "p", col = "red",main="PLOTE DOS DADOS",lwd=5)
+@
+
+\newpage
+
+<<plot22, fig.pos="h", fig.height=6, fig.width=6, fig.cap="22 Gráfico">>=
+plot(vendas2$VALOR,vendas2$PESOGRAMAS,col=c("red","blue"))
+@
+
+\newpage
+Quando você desejar realizar o gráfico de dispersão com uma variável categórica, necessitamos utilizar a função stripchart.
+
+<<plot23, fig.pos="h", fig.height=6, fig.width=6, fig.cap="23 Gráfico">>=
+
+stripchart(vendas2$FILIAL~vendas2$VALOR,vertical=T)
+@
+
+\newpage
+
+\textbf{Gráfico de Barras}
+
+Gráfico de barras é um dos mais comuns utilizados nas apresentações de universidades, empresas e por profissionais. Todos os programas de planilhas eletrônicas possuem este tipo de gráfico, vejamos como criá-lo:
+
+<<plot24, fig.pos="h", fig.height=6, fig.width=6, fig.cap="24 Gráfico">>=
+ par( mar=c(5,4,4,2) )
+ vendas2.freq=table(vendas2$PRODUTO)
+ barplot(vendas2.freq,col=colors)
+ barplot(vendas2.freq,col=colors,main="PRODUTOS")
+ 
+@
+
+\newpage
+
+
+\textbf{Gráfico de Pizza ou Setores}
+
+É um tipo de gráfico que exibe a distribuição dos dados em frequências (absolutas, percentuais), vejamos:
+
+
+<<plot25, fig.pos="h", fig.height=6, fig.width=6, fig.cap="25 Gráfico">>=
+pie(vendas2.freq,main="PRODUTOS",col=c("purple","violetred1","green3","cornsylk","cyan"))
+
+@
+
+\newpage
+
+
+\textbf{Melhorias nos Gráficos}
+
+Caso você deseje colocar um texto qualquer dentro da área do gráfico, utilize o \fbox{comando locator}, você terá a possibilidade de colocar informações além dos tradicionais eixos X e Y.
+Como fazemos isto:
+
+<<plot26, fig.pos="h", fig.height=6, fig.width=6, fig.cap="26 Gráfico">>=
+barplot(vendas2.freq,col=colors,main="PRODUTOS")
+
+@
+
+\newpage
+
+\textbf{Gráficos em duas janelas}
+
+Se você deseja colocar dois gráficos em uma única janela, de forma que possam ser comparados, utilize o \fbox{comando par(mfrow=c(nl,nc)) \# nl} indica o número de linhas e nc o número de colunas que a janela deverá ter. Primeiro vamos dividir a janela em duas colunas.
+Como exemplo, vamos exibir dois gráficos em uma única janela:
+<<>>=
+par(mfrow=c(1,2))
+plot(vendas2$VALOR,vendas2$PESOGRAMAS,col=c("red","blue"))
+barplot(vendas2.freq,col=colors,main="PRODUTOS")
+@
+
+Para retornar a exibição para apenas 1 gráfico, basta repetir a função par(mflow=c(1,1)).
+
+Para imprimir um gráfico, na janela plot há uma opção para exportação em PNG e PDF.
+
+
+\newpage
+\subsection{8. Programação, Análise Uni e BI variada, Uso de Var. Qualitativas e Quantitativas}
+
+
+\textbf{12. Programação}
+
+Todos nós sabemos que a ferramenta R é extremamente útil para aqueles que desejam fazer análise de dados através dos pacotes disponíveis na ferramenta. Entretanto ela pode ser vista como uma linguagem de programação, onde o usuário pode criar as suas próprias funções. Esta é uma das maiores vantagens da ferramenta. Além de ser um programa para análises estatísticas, o R é acima de tudo uma linguagem de programação. Você tem duas opções para aprender a usar o R ou aprender a fazer programas básicos em R. Primeiro devemos entender como construímos uma função ou function.
+A sintaxe é:
+
+\begin{verbatim}
+function(lista de argumentos)
+{
+corpo da função
+}
+\end{verbatim}
+
+- A lista de argumentos é a passagem de parâmetros para o seu programa, podem ser passados mais de um parâmetro, tudo separado por vírgula.
+- o corpo da função é onde você irá programar o seu algoritmo, ou seja, irá definir a lógica de programação da sua função.
+Para dar um nome a sua função basta colocar:
+
+\vspace{.25cm}
+
+\fbox{minha.função$<-$function(lista de argumentos){corpo da função}}
+\vspace{.25cm}
+
+No R-studio você tem um editor de texto para criar a sua função:
+
+<<>>=
+ganho<-function(x,n){{
+sample(x,n,replace=T)#onde x é o vetor com n amostras com reposição
+}}
+
+informe=c("Brasil","Alemanha","Inglaterra")
+ganho(informe,10)
+@
+
+Agora você percebe que foi criada uma função onde são passados 2 parâmetros, o vetor contendo os dados que serão amostrados e a quantidade de amostras com reposição. Ao contrário de chamar a função sample, você utiliza a função ganho criada por você.
+
+\vspace{.25cm}
+
+
+\textbf{Comando FOR}
+
+\vspace{.25cm}
+
+O comando FOR é utilizando para criar loopings de execução.
+A sintaxe do comando é: for (variável in 1:n) {comandos}
+Por exemplo, vamos utilizar o comando FOR para gerar a sequência de Fibonnaci. ($n_{posterior}+n_{anterior}=n_{novo}$
+
+<<>>=
+fibonacci<-numeric(0)
+fibonacci[c(1,2)]=1
+ for (x in 3:12) {fibonacci[x]=fibonacci[x-2]+fibonacci[x-1]}
+fibonacci
+@
+
+\newpage
+Outro exemplo
+<<>>=
+megasena<-function(numjogos) { # cria a função com nome de megasena
+numeros<-matrix(NA,6,numjogos) # cria o arquivo que recebe os jogos
+for(x in 1:numjogos){
+numeros[,x]<-sample(1:60,6)
+}
+return(numeros)
+}
+megasena(20)
+@
+
+\vspace{.25cm}
+\textbf{13. Uso da Estatística}
+\vspace{.25cm}
+
+
+Caro Aluno, conforme havíamos detalhado desde o início do curso, o objetivo principal dos nossos estudos é na descoberta das potencialidades da ferramenta R, de forma a permitir uma compreensão do seu funcionamento, mas de todo modo vimos aqui algumas facilidades estatísticas que a ferramenta pode oferecer, entretanto neste tópico irei apresentar algumas estatísticas e manipulações de dados que facilitam a aplicação de teste estatísticos e de análise de dados em geral.
+
+Vamos importar o arquivo Cidadao-Arquivo3.csv
+Com o arquivo importando, vamos entender dois conceitos importantes na estatística, variáveis quantitativas e qualitativas:
+
+ qualitativas
+o nominais
+o ordinais
+ quantitativas
+o discretas
+o contínuas
+
+Estas podem ser resumidas por tabelas, gráficos e/ou medidas.
+As variáveis pertencentes ao arquivo Cidadao-Arquivo3.csv, NÃO são numéricas e sim categóricas. No R variáveis categóricas são definidas usando o comando factor(), que vamos usar para redefinir nossas variáveis. Redefinimos a variável Est.civil com os rótulos (labels) solteiro e casado associados aos níveis (levels) 1 e 2. Para variável Grau.instrucao usamos o argumento adicional ordered = TRUE para indicar que é uma variável ordinal. Na variável regiao codificamos assim: 2=capital, 1=interior, 3=outro. Ao final inspecionamos as primeiras linhas do conjunto de dados digitando usando head().
+
+\newpage
+
+<<>>=
+cidadao2 <- read.csv(file="Cidadao-Arquivo3.csv",head=TRUE,sep=";")#usar o separador ; 
+#que no excel quando abrimos vemos espacado certinho
+
+str(cidadao2)#str da estrutura dos dados. Se o R ler os dados tudo zuado aqui no str entao mude o separador
+
+head(cidadao2)
+@
+
+
+
+<<>>=
+cidadao2$Est.civil=factor(cidadao2$Est.civil, label = c("solteiro", "casado"),levels = 1:2) 
+#1 para solteiro
+#2 muda para casado
+cidadao2$Est.civil
+
+cidadao2$Grau.Instrucao=factor(cidadao2$Grau.Instrucao, label = c("1Grau","2Grau"),level = 1:2, 
+ordered = T)
+cidadao2$Grau.Instrucao
+
+@
+
+
+<<>>=
+cidadao2$regiao <- factor(cidadao2$regiao, label = c("capital", "interior","outro"),
+lev = c(2, 1,3))
+cidadao2$regiao
+
+cidadao2
+
+cidadao2=transform(cidadao2,aumento.sal=Salario*1.20)
+
+@
+
+
+\textbf{Análise univariada}
+
+A análise univariada consiste basicamente em, para cada uma das variáveis individualmente:
+
+ Classificar a variável quanto a seu tipo:
+
+1) qualitativa (nominal ou ordinal) ou
+
+2) quantitativa (discreta ou contínua).
+
+ Gerar uma tabela, gráfico e/ou medidas que resumam a variável.
+
+Vamos trabalhar com a variável qualitativa nominal Est.civil, podemos gerar uma tabela de frequência, um gráfico de setores que é o mais indicado para o tipo de variável.
+ Frequência Absoluta
+
+
+<<>>=
+ civil=table(cidadao2$Est.civil)
+ civil
+ 
+ prop.table(civil)
+ 
+ pie(prop.table(civil))
+ 
+ names(civil)[which.max(civil)]#moda
+ 
+ 
+@
+Existem alguns especificos gráficos de acordo com o tipo da variável:
+
+% Table generated by Excel2LaTeX from sheet 'Plan1'
+\begin{table}[htbp]
+  \centering
+  \caption{Tipo de variável por tipo de gráfico}
+    \begin{tabular}{l}
+    Tipo de Variável \\
+    Gráfico \\
+    Variável qualitativa nominal \\
+    Setores - pie(prop.table(civil)) \\
+    Variável qualitativa ordinal \\
+    Barras - barplot(instrucao) \\
+    Variável quantitativa discreta \\
+    Frequência absoluta – \\
+    $>$ irmao.fa=table(cidadao\$Irmao) \\
+    $>$ plot(irmao.fa) \\
+    Frequência relativa – \\
+    $>$ irmao.fr=prop.table(irmao.fa) \\
+    $>$ Plot(irmão.fr) \\
+    Variável quantitativa continua \\
+    Histograma \\
+    $> hist(cidadao\$Salario, main = "") \\
+    Box-plot \\
+    $>$ boxplot(cidadao\$Salario) \\
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+
+Por curiosidade, para se obter uma frequência relativa de uma variável continua, teremos que saber a amplitude dos dados (máximo - mínImo), a quantidade de classes ( utilizaremos o critério de Sturges).
+
+
+<<>>=
+range(cidadao2$Salario)
+
+nclass.Sturges(cidadao2$Salario)
+
+salario.fr <- table(cut(cidadao2$Salario, seq(4.00, 11.06, l = 7)))
+
+salario.fr
+
+prop.table(salario.fr)
+@
+
+
+\vspace{.25cm}
+
+\textbf{Análise Bivariada}
+
+\vspace{.25cm}
+
+Na análise bivariada basicamente procuramos identificar relações entre duas variáveis. Assim como na análise univariada estas relações podem ser resumidas também por gráficos, tabelas e/ou medidas estatística. Os estudos realizados nestas variáveis vai depender dos tipos das variáveis envolvidas. Vamos considerar três possibilidades:
+
+ qualitativa vs qualitativa
+
+ qualitativa vs quantitativa
+
+ quantitativa vs quantitativa
+
+
+OBS:AS RELAÇÕES ENTRE DUAS VARIÁVEIS DEVEM SER EXAMINADAS COM CUIDADO, POIS PODEM SER OCULTADAS/MASCARADAS POR UMA OU MAIS VARIÁVEIS EXISTENTES NÃO CONSIDERADAS NA ANÁLISE. ESTAS SÃO CHAMADAS VARIÁVEIS DE CONFUNDIMENTO.
+
+1) Análise Qualitativa x Qualitativa: Este tipo de análise envolve duas variáveis criando a chamada tabela de cruzamento ou tabela de contingência e pode ser apresentada de várias formas. A forma mais adequada de apresentação vai depender dos objetivos da análise e da interpretação desejada para os dados.
+
+
+Vamos iniciar cruzando duas variáveis Estado Civil e Grau de Instrução
+
+<<>>=
+tab.cr <- (cidadao2$Est.civil, cidadao2$Grau.Instrucao)
+
+#Podemos saber o somatório de cada linha 
+#ou coluna e suas frequências relativas
+#através do comando addmargins()
+
+addmargins(tab.cr,margin=)
+
+addmargins(tab.cr,margin=1)#com o final margin=1 soma as linhas
+
+addmargins(tab.cr,margin=2)#com o final margin=2 soma as colunas
+
+#A frequência relativa faremos com o
+#comando conhecido prop.table()
+prop.table(tab.cr,margin=1)
+
+prop.table(tab.cr,margin=2)
+
+
+@
+
+Neste tipo de análise o ideal é gerar gráficos de barras, vejamos:
+
+<<>>=
+barplot(tab.cr, legend = T) # gráficos para Grau de instrução x Estado Civil
+
+barplot(t(tab.cr), legend = T) # gráficos do inverso
+
+barplot(prop.table(tab.cr), beside = T, legend = T) # gráfico de barras separado por Grau de instrução
+@
+
+
+Uma medida estatística para análise de duas variáveis qualitativas é o teste Chi-quadrado, através do comando summary() conhecido como medida de associação entre duas variáveis, podemos executar o teste e verificar se há associação entre estado civil e grau de instrução.
+
+<<>>=
+summary(tab.cr)
+@
+
+O resultado apresenta dados insuficientes para a análise, portanto é necessário que um novo agrupamento ou novos dados sejam coletados para que a estatística Chi-quadrado seja exibida corretamente.
+
+2) Análise Qualitativa x Quantitativa: Para este tipo de análise vamos utilizar agrupamento de tabelas em classe e a análise de gráfico deve ser realizada através de box-plot. Vamos utilizar o \fbox{comando cut()} para separar a tabela em quartis, a instrução include.lowest=TRUE para incluir os extremos dos dados, os valores de mínimo e máximo. As variáveis que trabalharemos serão salário (quantitativa) e Grau de instrução (qualitativa)
+
+Para exibir os quartis , para se ter uma ideia da separação das classes, utilize o \fbox{comando quantile()}
+
+<<>>=
+quantile(cidadao2$Salario)
+
+salario.qt <- cut(cidadao2$Salario, quantile(cidadao2$Salario), include.lowest = T)
+ 
+tab.sl <- table(cidadao2$Grau.Instrucao,salario.qt)
+
+tab.sl
+@
+
+
+
+Para análise de frequência relativa, relembre-se do comando prop.table()
+
+<<>>=
+prop.table(tab.sl,margin=1)
+
+prop.table(tab.sl,margin=2)
+
+boxplot(cidadao2$Salario~cidadao2$Grau.Instrucao)
+
+@
+
+
+Podemos obter, outras estatísticas descritivas: Média e desvio padrão. Tudo através do \fbox{comando tapply()}, no nosso exemplo em relação a salário e grau de instrução.
+
+<<>>=
+tapply(cidadao2$Salario,cidadao2$Grau.Instrucao, mean)
+
+tapply(cidadao2$Salario,cidadao2$Grau.Instrucao, sd)
+@
+
+
+3) Análise Quantitativa vs Quantitativa: Para este tipo de análise podemos gerar tabelas de classes para ambas as variáveis, no exemplo possuimos salário e idade, que são variáveis quantitativas. O gráfico explorado será o gráfico de dispersão, onde perceberemos que uma variável é explicada por outra.
+Vamos gerar as classes da variável idade:
+
+<<>>=
+idade.qt=cut(cidadao2$Idade,quantile(cidadao2$Idade),include.lowest = T)
+
+#Gerando as tabelas de classes com frequência absoluta e relativa:
+table(idade.qt,salario.qt)
+
+prop.table(table(idade.qt,salario.qt),margin=1)
+
+prop.table(table(idade.qt,salario.qt),margin=2)
+
+#Para geração dos gráficos utilizaremos a função plot()
+plot(cidadao2$Idade,cidadao2$Salario)
+
+
+@
+
+
+
+No gráfico você irá notar que à medida que a idade(variável explicativa,preditora,independente) avança os salários(variável resposta, dependente – está sempre no eixo y) são maiores, confirmando uma relação entre as variáveis.
+
+Podemos fechar o uso de estatísticas para variáveis quantitativas, através do chamado coeficiente de correlação que analisa através de uma medida variando de -1 até +1 se há uma forte, nenhuma ou fraca correlação entre as variáveis:
+
+<<>>=
+#Correlação linear:
+cor(cidadao2$Idade,cidadao2$Salario)
+
+#Correlação Spearman:
+cor(cidadao2$Idade,cidadao2$Salario,method = "spearman")
+
+@
+
+Ambas apresentam valores próximos de zero, não confirmando as correlações no caso.
+
+\newpage
+
+\textbf{Teste de Hipóteses}
+
+\vspace{.5cm}
+Serão apresentados alguns testes de hipóteses para ilustração da ferramenta \faRProject, importante que você obtenha conhecimento teórico antes de utilizar estas funções da ferramenta \faRProject, o nosso curso não se propõe ao aprendizado teórico das análises estatísticas geradas aqui, cabe ao aluno o aprendizado prévio.
+
+1) Média de uma distribuição normal com variância desconhecida
+Para realizar inferência sobre a média de uma amostra considerando com uma distribuição Normal, devemos verificar qual é o seu intervalo de confiança.
+
+Sabemos que o intervalo de confiança para média de uma distribuição normal com média desconhecida é dado por:
+
+$$
+\left(\overline{x}-t_{\alpha/2}\sqrt{\frac{S^{2}}{n}},\overline{x}+t_{1-\alpha/2}\sqrt{\frac{S^{2}}{n}\right)
+$$
+
+No nosso caso vamos partir de um conjunto de dados para utilizar o teste t para calcular o intervalo para esta média desconhecida e com um tamanho de amostra pequeno.
+No nosso exemplo consideremos:
+Sejam os dados abaixo representando o tempo (segundos) de um chute de penalidade máxima, dos gols marcados pela seleção brasileira nas últimas copas do mundo. Considerado como tendo distribuição Normal e deseja-se fazer inferência sobre a média que é desconhecida obtendo um intervalo de confiança. Trinta chutes foram sorteados dentro 70 últimos gols de pênalti marcados. Os dados foram os seguintes (em segundos):
+
+3.7
+1.6
+4.2
+3.3
+3.2
+4.1
+6.1
+2.5
+3.1
+4.3
+3.2
+4.2
+3.1
+4.2
+5.2
+3.2
+4.7
+2.1
+2.3
+2.1
+3.1
+4.6
+2.1
+1.5
+1.8
+2.7
+3.1
+4.7
+2.5
+3.4
+
+<<>>=
+chute=c(3.7,1.6,4.2,3.3,3.2,4.1,6.1,2.5,3.1,4.3,3.2,4.2,3.1,4.2,5.2,3.2,4.7,2.1,2.3,2.1,3.1,4.6,2.1,1.5,1.8,2.7,3.1,4.7,2.5,3.4)
+
+t.test(chute)
+@
+
+O intervalo de confiança default é de 95\% testa à igualdade de média a zero (p-value = 6.610e-16), em um teste bilateral.
+
+Para obter um intervalo de confiança diferente de 95\%, para forçar o teste em uma média específica, vamos dizer que você saiba a média da população e queira testar a hipótese:
+\begin{itemize}
+    \item $H_{0}$: Média igual a 2
+    \item $H_{a}$: Média é maior que 2
+\end{itemize}
+
+<<>>=
+t.test(chute, alt = "greater", mu = 2, conf.level = 0.99)
+@
+
+2) Teste $\chi^2$ para aderência à uma certa distribuição
+
+Muitas vezes desejamos saber se uma determinada amostra tem as mesmas características (distribuição) de uma determinada população, desta maneira podemos utilizar o teste Chi-quadrado para determinar qual hipótese aceitar.
+
+\begin{itemiz}
+\item $H_{0}$ : Segue a distribuição esperada
+\item $H_{a}$ : Não segue a distribuição esperada
+\end{itemiz}
+
+
+Considere a quantidade de indivíduos de acordo com os seus pesos, é retirada uma determinada amostra para cinco grupos de indivíduos, separados por classes sociais:
+
+% Table generated by Excel2LaTeX from sheet 'Plan1'
+\begin{table}[htbp]
+  \centering
+    \begin{tabular}{rrrrr}
+    \multicolumn{1}{l}{Classe A} & \multicolumn{1}{l}{Classe B} & \multicolumn{1}{l}{Classe C} & \multicolumn{1}{l}{Classe D} & \multicolumn{1}{l}{Classe E} \\
+    180   & 30    & 50    & 60    & 80 \\
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+
+% Table generated by Excel2LaTeX from sheet 'Plan1'
+\begin{table}[htbp]
+  \centering
+    \begin{tabular}{rrrrr}
+    \multicolumn{1}{l}{Classe A} & \multicolumn{1}{l}{Classe B} & \multicolumn{1}{l}{Classe C} & \multicolumn{1}{l}{Classe D} & \multicolumn{1}{l}{Classe E} \\
+    16    & 4     & 6     & 7     & 5 \\
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+Vamos calcular a um nível de significância de $\alpha = 5%.$
+
+A estatística de teste $\chi^{2}=\sum_{i}\displaystyle\frac{(o_{i}-e_{i})^2}{e_{i}}$
+
+Vejamos:
+
+<<>>=
+o <- c(180, 30, 50, 60,80)
+e <- c(16,4,6,7,5)/38
+chisq.test(o, p = e)
+@
+
+Portanto como o p-valor é menor que 0.05, a conclusão é que rejeita-se H0 ao nível de 5\%, ou seja, a hipótese que a população pertence a amostra não é confirmada, esta não segue o padrão de pesos da população estudada.
+
+\vspace{.25cm}
+\textbf{3) Comparação de duas médias}
+\vspace{.25cm}
+
+Sempre quando temos uma variável qualitativa com dois níveis e outra quantitativa o interesse em geral está em comparar as médias da quantitativa para cada grupo da qualitativa. Para isto podemos utilizar o teste T. Há dois tipos de teste T: para amostras independentes com variâncias iguais ou desiguais, ou para amostras pareadas.
+
+No nosso exemplo, vamos testar se um determinado tipo de chocolate que é produzido por duas empresas diferentes, realmente difere em relação a sua produção pelo seu teor de cacau encontrado nos chocolates. Vamos comparar as médias dos teores de cacau a um nível de 5\% de significância e considerando as variâncias iguais, tiramos uma amostra de tamanho=8:
+
+Só Cacau
+0.2
+1.2
+3.4
+2.1
+4.5
+2.3
+5.2
+4.2
+
+
+Puro Sabor
+2.1
+2.1
+4.2
+3.5
+2.3
+4.2
+1.3
+0.7
+
+
+As hipóteses são:
+
+\begin{itemize}
+\item $H_{0} :\mu_{1} = \mu_{2}$
+\item $H_{a} :\mu_{1} \neq \mu_{2}$
+\end{itemize}
+
+\newpage
+<<>>=
+sc <- c(0.2,1.2,3.4,2.1,4.5,2.3,5.2,4.2)
+pc <- c(2.1,2.1,4.2,3.5,2.3,4.2,1.3,0.7)
+
+t.test(sc, pc, var.eq = TRUE, conf = 0.95)
+
+@
+
+Pelo teste verificasse que as médias são iguais, ou seja não rejeitamos a hipótese nula (H0), note o p-valor(0.6658) é maior que 0.05.
+
+Se a amostra for pareada, ou seja, são duas coletas para os mesmos indivíduos, então basta acrescentar a informação: paired=TRUE
+
+<<>>=
+t.test(sc, pc, var.eq = TRUE, conf = 0.95,paired=TRUE)
+
+@
+
+\vspace{.5cm}
+
+\textbf{4) Comparação de médias múltiplas pelo teste de Tukey}
+
+\vspace{.5cm}
+
+Muitas vezes temos mais de uma média em nossos experimentos, portanto desejamos comparar as médias entre fatores e grupos. Vamos carregar a base de dados Escola-Arquivo4.csv, que contém as taxas de aprovação dos alunos por determinadas escolas para os mesmos professores, ou seja, os professores lecionam em escolas diferentes e queremos saber se há diferenças nas taxas de aprovação entre escolas. Para facilitar utilize a importação do dataset no R-Studio, ou digite o comando a seguir:
+
+<<>>=
+
+escola1 <- read.csv(file="Escola-Arquivo4.csv",head=TRUE,sep=";")
+
+str(escola1)
+head(escola1)
+
+@
+
+Consideramos taxa de aprovação a variável que determinará as médias por escola e professores, criamos uma interação, note pelo símbolo de “:”.
+
+<<>>=
+#a função aov faz a anova
+escola.media= aov(escola1$taxa_aprovacao ~ escola1$escolas + escola1$professores + escola1$escolas:escola1$professores, data = escola1)
+
+escola.tk=TukeyHSD(escola.media)
+
+escola.tk
+
+
+@
+
+pelos p-valores ajustados encontrados não encontramos diferenças de médias (nenhum p-valor estave abaixo 0.05) das taxas de aprovação entre os professores que ensinam em escolas diferentes.
+
+
+\newpage
+\textbf{Regressão Linear Simples}
+
+\vspace{.5cm}
+
+
+A regressão linear simples é utilizada para analisar uma relação que ocorre entre variáveis quantitativas (continuas). É chamado de “linear”, pois se considera que o resultado esperado é verificado em uma função linear, do tipo y = ax +b. Para exemplificar o uso da regressão linear simples, carregaremos o arquivo Bovinos-Arquivo5.csv, onde procuraremos estudar se o percentual de proteína de bovinos aumenta conforme a quantidade ingerida de uma determinada ração.
+
+<<>>=
+bois <- read.csv(file="Bovinos-Arquivo5.csv", head=TRUE,sep=";")
+
+str(bois)
+
+head(bois)
+
+@
+
+Para utilizar a função de regressão linear simples, vamos chamar a \fbox{função lm()} e a \fbox{função summary()} com suas variações para linear models.
+
+Primeiro vamos plotar os dados para verificar se existe uma relação linear entre as variáveis.
+
+<<plot, fig.pos="h", fig.height=4, fig.width=6, fig.cap="Plot dispersão">>=
+plot(bois$Quantidade_Racao,bois$Percentual_proteina)
+
+rls=lm(bois$Percentual_proteina ~ bois$Quantidade_Racao)
+summary.aov(rls)
+abline(rls)# abline ajusta a reta de regressao mqo ao scatterplot
+summary(rls)
+@
+
+Note que o modelo de regressão linear simples pela análise do p-valor informa que existe uma relação linear entre as variáveis, com a determinação do modelo pela função:
+
+$$
+\mbox{Percentual\_proteina} = 13.73520 + 0.09797  \mbox{Quantidade\_ração}
+$$
+
+Por exemplo, se desejarmos saber qual seria o valor estimado do Percentual de proteína de um boi, se este se alimentasse de 350 quilos de ração:
+
+$$
+\mbox{Percentual\_Proteina} = 13.73520 + 0.09797 * 350 \Rightarrow 48,0247
+$$
+
+\vspace{.5cm}
+\textbf{Regressão Múltipla}
+\vspace{.5cm}
+
+A regressão múltipla se diferencia da regressão linear simples, por possuir mais de uma preditora (X), ou seja, para uma variável resposta(Y) podemos ter mais de uma variável explicativa(X).
+
+Vamos utilizar o mesmo arquivo Bovinos-Arquivo5.csv e acrescentar a variável Percentual de carne magra no modelo.
+
+Da mesma forma que trabalhamos na regressão linear simples, vamos chamar a função lm() e a função summary() com suas variações, para linear models.
+
+\newpage
+<<>>=
+rlm=lm(bois$Percentual_proteina ~ bois$Quantidade_Racao + bois$Percentual_Carne_Magra)
+
+summary.aov(rlm)
+
+#Note que ao rodarmos summary.aov(rlm) somente tivemos p-valor signficante
+#para Qtd de ração, pois p<0.05
+#observe os asteriscos ao lado do p-valor
+
+summary(rlm)
+@
+
+Note que o modelo de regressão múltipla informa um p-valor abaixo de 0.05, foi significante apenas para a quantidade de ração, não apresentando relevância para os demais atributos, portanto não poderemos utilizar todos os atributos na definição do modelo múltiplo:
+
+%===================================================================
+
+\newpage
+
+
+
+\section{14. Exercícios Finais para Emissão do Certificado de Participação}
+
+\subsection{14.1 Primeira Bateria de Exercícios}
+
+Para os resultados abaixo mostre os comandos:
+
+
+
+1) Carregue o vetor
+
+[1] 29 67 78 46 56 67
+
+<<>>=
+vetor <- c(29, 67, 78, 46, 56, 67)
+vetor
+@
+
+2) Selecionar o quinto e último elemento do vetor que você criou acima
+
+<<>>=
+vetor[5]
+
+vetor[6]
+@
+
+3) Crie o vetor abaixo na seguinte ordem de valores
+
+32 45 56 98 103 154
+
+<<>>=
+vetor2 <- c(32, 45, 56, 98, 103, 154)
+vetor2
+@
+
+4) Crie um vetor com repetição de sequência
+ 1 1 1 2 2 2 3 3 3 4 4 4
+<<>>=
+vet=rep(1:4, each = 3)
+vet
+@
+
+5) Crie um vetor que guarde dados alfanuméricos
+
+"Bahia"\,\, "Fluminens"\,\, "Palmeiras"\,\, "Santos"
+
+<<>>=
+times <- c("Bahia", "Fluminens", "Palmeiras", "Santos")
+times
+@
+
+6) Crie um conjunto de dados que responda as informações abaixo. Para saber se as informações estarão corretas, considere a tabela de freqüências a seguir. Entre com os dados usando o tipo de objeto adequado.
+
+% Table generated by Excel2LaTeX from sheet 'Plan1'
+\begin{table}[htbp]
+  \centering
+    \begin{tabular}{lrrrr}
+    \toprule
+    \hline
+          & \multicolumn{1}{l}{Casado} &       & \multicolumn{1}{l}{Solteiro} &  \\
+          \hline\hline
+    \midrule
+    \midrule
+    Idade & \multicolumn{1}{l}{Homem} & \multicolumn{1}{l}{Mulher} & \multicolumn{1}{l}{Homem} & \multicolumn{1}{l}{Mulher} \\
+    \midrule
+    \hline\hline
+    Menor que 50 & 30    & 16    & 34    & 13 \\
+    50 a 70 & 14    & 32    & 23    & 17 \\
+    Maior que 70 & 27    & 23    & 44    & 32 \\
+    \hline\hline
+    \bottomrule
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+6.1) Encontre o número total de pessoas.
+
+<<>>=
+#carrego um dataset externo .csv
+ex6<-read.csv(file="Exerc6.csv",head=TRUE,sep=";")
+ex6
+
+
+#Encontrando o número total de pessoas
+totpessoas<-sum(ex6$HomemCasado,ex6$MulherCasada,ex6$HomemSolteiro,ex6$MulherSolteira)
+
+totpessoas
+@
+
+6.2) Informe quantos são homens casados.
+
+<<>>=
+sum(ex6$HomemCasado)
+
+@
+
+
+6.3) Informe quantos são homens.
+<<>>=
+sum(ex6$HomemCasado,ex6$HomemSolteiro)
+
+@
+
+
+
+6.4 Informe a proporção da distribuição, qual o maior percentual?
+
+<<>>=
+
+#divido cada variável por total de pessoas
+propHCasado<-ex6$HomemCasado/totpessoas 
+
+#propHCasado leia-se proporção para Homem Casado.
+#Em seguida arredondo (com a função round()
+#para duas casas após a virgula
+#para mostrar em x100% na tabela
+
+pHCasado<-round(propHCasado*100,digits=2) 
+
+propHSolteiro<-ex6$HomemSolteiro/totpessoas
+
+pHSolteiro<-round(propHSolteiro*100,digits=2) 
+
+propMCasada<-ex6$MulherCasada/totpessoas
+
+pMCasada<-round(propMCasada*100,digits=2) 
+
+propMSolteira<-ex6$MulherSolteira/totpessoas
+
+pMSolteira<-round(propMSolteira*100,digits=2)
+
+#Construo a nova tabelinha com as proporções
+tabprop<-data.frame(ex6$Idade,pHCasado,pHSolteiro,pMCasada,pMSolteira)
+
+tabprop
+
+@
+
+
+A tabelinha no chunk acima demonstra que a proporção de Homens Solteiros acima dos 70 anos de idade é a maior, com 14,43\% do total.
+
+
+
+
+
+\section{14.2 Segunda Bateria de Exercícios}
+
+Para os resultados abaixo mostre os comandos:
+Há vários conjuntos de dados que são embutidos na ferramenta R como por exemplo, o conjunto mtcars. Para ver uma lista completa com o conjunto de dados disponíveis digite data().
+Carregue a base cars e execute os comandos a seguir:
+
+<<>>=
+data(cars)
+
+str(cars)
+@
+
+1) Calcule a mean(), var(), sd(), median(), quantile() do campo speed.
+
+<<>>=
+mean(cars$speed)
+
+var(cars$speed)
+
+sd(cars$speed)
+
+median(cars$speed)
+
+quantile(cars$speed)
+
+
+
+@
+
+2) Encontre o número máximo e mínimo do campo dist.
+<<>>=
+max(cars$dist)
+
+min(cars$dist)
+
+@
+
+
+\newpage
+3) Exiba o gráfico de ramo-e-folhas para o campo speed.
+<<>>=
+stem(cars$speed)
+
+@
+
+4) Encontre os coeficientes de correlação linear e de Spearman para os campos dist e speed.
+
+<<>>=
+#Correlação linear
+cor(cars$dist,cars$speed)
+
+#Tirando o Spearmen (hehehe) agora
+cor(cars$dist,cars$speed, method="spearman")
+
+@
+
+5) Crie um gráfico de dispersão para os campos dist e speed.
+<<Dispersão dist e speed, fig.pos="h", fig.height=4, fig.width=6, fig.cap="Diagrama de dispersão entre dist e speed">>=
+
+plot(cars$dist,cars$speed)
+
+@
+
+\newpage
+
+6) Exiba as primeiras linhas do conjunto de dados cars.
+<<>>=
+head(cars)
+@
+
+7) Coloque em ordem decrescente os dados do campo speed.
+<<>>=
+cars[order(cars$speed,decreasing=TRUE),]
+
+@
+
+8) Utilizando o comando which, filtre os dados cujo o campo speed seja maior que 80.
+
+<<>>=
+#Não existe nenhum dado com speed>80
+which(cars$speed > 80)
+
+max(cars$speed)
+
+@
+
+9) Crie o campo tempo pela fórmula dist/speed.
+
+<<>>=
+tempo<-cars$dist/cars$speed
+
+tempo
+@
+
+10) Calcule o tempo médio total.
+<<>>=
+mean(tempo)
+@
+
+\section{14.3 Terceira Bateria de Exercícios}
+
+\textbf{Para os resultados abaixo mostre os resultados e comandos:}
+
+1) Para os dados abaixo, utilize o teste $t$-student para encontrar se há diferença entre médias das duas amostras. As amostras foram retiradas de dois grupos de portadores de uma doença rara, eles tomaram um remédio específico para a baixa de colesterol, devemos verificar se há diferença entre as médias dos valores de colesterol, após a ingestão do remédio criado pelos laboratórios A e B, considere uma confiança de 99\% e que existem igualdade das variâncias:
+
+
+
+<<>>=
+Lab.A<-c(141,138,142,135,137,129)
+Lab.B<-c(148,132,136,141,139,128)
+
+@
+
+Primeiro ao observamos o padrão dos dados obtemos as médias para comparação e declaramos o teste de hipótese:
+
+\begin{center}
+$H_{0}:\mu_{1} = \mu_{2}$
+
+$H_{a}:\mu_{1}\neq\mu_{2}$
+\end{center}
+
+<<>>=
+t.test(Lab.A, Lab.B, var.eq = TRUE, conf = 0.99)
+@
+
+Pelo teste $t$ de Student verificamos que as médias são iguais, ou seja não rejeitamos a hipótese nula ($H_{0}$). Note que o p-valor(0.925) é maior que 0.05.
+
+\vspace{.5cm}
+
+2) Encontre intervalos de confiança de 95\% para a média de uma distribuição Normal com variância desconhecida dos pesos em gramas de rãs, dada a amostra abaixo:
+
+<<>>=
+rapesos<-c(12.6, 11.9, 18.5, 9.8, 12.6, 11.7, 12.1, 13.2, 13.2, 9.3, 12.3, 12.2, 9.3, 11.7, 18.4, 12.5, 9.1, 8.3, 12.7, 8.2)
+@
+
+Aqui fazemos o teste $t$ quando sabemos que o intervalo de confiança para média de uma distribuição normal com média desconhecida é dado por:
+
+$$
+\left(\overline{x}-t_{\alpha/2}\sqrt{\frac{S^{2}}{n}},\overline{x}+t_{1-\alpha/2}\sqrt{\frac{S^{2}}{n}\right)
+$$
+
+<<>>=
+t.test(rapesos)
+
+@
+
+
+O intervalo para a média está entre 10.69 \~ 13.27 com 95\% de confiança. Pelo valor-p ($5.175e-14<0.05$) vemos que as médias não são iguais.
+
+\section{14.4 Quarta Bateria de Exercícios}
+
+
+Para os resultados abaixo mostre os resultados e comandos:\\
+
+
+1) Construa uma função chamada "calculator" que calculará automaticamente o valor da renda de um cidadão por 12 meses, esta renda será acrescida de 20\% a cada mês:
+
+Por exemplo:
+
+
+ Salário atual= 1000 reais\\
+ Aumento em janeiro =20\%\\
+ Salário de fevereiro= 1200 reais (salário de janeiro + 20\%)\\
+ Aumento em fevereiro =20\%\\
+ Salário de março= 1440 reais (salário de fevereiro + 20\%)\\
+
+
+A função deve receber o salário e o valor de percentual de aumento.
+
+Ex: $>$ calculator(5000,30) # quer dizer que o salário é de 5000 mil e o aumento é de 30\%.
+
+\vspace{.5cm}
+
+\textbf{Resposta:}
+
+\vspace{.5cm}
+Utilizando o princípio de progressão geométrica, ou melhor, um regime de capitalização composta, encontramos a função que melhor modela o problema como:
+
+$$
+M=C(1+i)^t
+$$
+
+Onde M= Montante, C=Capital ou valor do salário no caso do problema, i= taxa de rendimento (taxa de juros), $t$ tempo ou período desejado. No exemplo utiliza-se 12 meses, porém aqui vamos setar para que o usuário a insira.
+
+\begin{lstlisting}[language=R, caption=Função Montante (capitalização composta)]
+montante<-function(c,i,t){{
+c*(1+i)^t
+}}
+\end{lstlisting}
+
+Vamos rodar o chunk aqui dentro do \LaTeX~ para demonstrarmos melhor o funcionamento da função montante:
+<<>>=
+montante<-function(c,i,t){{
+c*(1+i)^t
+}}
+
+c<-1000
+i<-0.2
+t<-12
+
+montante(c,i,t)
+@
+
+Ou seja, com os resultados demonstrados pela fórmula montante, temos que se o salário de 1000 reais hoje crescendo a uma taxa exponencial de juros de 20\% ao mês, ao final de 12 meses acumula um valor montante de R\$ 8.916,10 
+
+%===================================================================
+
+\section{R Markdown: Relatórios dinâmicos no \faRProject}
+
+No RStudio escolher novo script R Markdown em seguida apagar o script de padrão e colocar esse 
+
+\subsection{Primeiro exemplo do primeiro vídeo:}
+
+\begin{verbatim}
+---
+title: "Formato e Tipos de Texto"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+Plain text
+End a line with two spaces to start a new paragraph.
+*italics* and _italics_
+**bold** and __bold__
+superscript^2^
+~~strikethrough~~
+[link](www.rstudio.com)
+
+# Header 1
+
+## Header 2
+
+### Header 3
+
+#### Header 4
+
+##### Header 5
+
+###### Header 6
+
+endash: --
+emdash: ---
+ellipsis: ...
+
+inline equation: $A = \pi*r^{2}$
+
+image: ![](C:\Users\rodri\Desktop\RHO\Cursos online\Curso Super Academia R, linguagem R, Markdown e Shiny\R Markdown\cachorro.jpg) 
+
+horizontal rule (or slide break):
+
+***
+> block quote 
+
+* unordered list
+* item 2
+   + sub-item 1
+   + sub-item 2
+
+1. ordered list
+2. item 2
+    + sub-item 1
+   + sub-item 2
+ 
+Table Header  | Second Header
+------------- | -------------
+Table Cell    | Cell 2
+Cell 3        | Cell 4 
+\end{verbatim}
+
+Compilar o documento em Knit to HTML.
+
+\subsection{Segundo exemplo do primeiro vídeo:}
+
+\begin{verbatim}
+---
+title: "Rotinas R markdown"
+author: "Grimaldo"
+date: "20/02/2020"
+output:
+html_document: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# RELATÓRIO R Markdown - PRIMEIRO EXERCÍCIO CRIAÇÃO DE RELATÓRIO DE GRÁFICOS DINÂMICOS.
+ALUNOS PROF. GRIMALDO OLIVEIRA
+
+
+```{r, echo=FALSE}
+x=rnorm(100)
+y=rnorm(100)
+plot(x,y)
+plot(x,y,xlab="this is the x-axis",ylab="this is the y-axis",main="Plot of X vs Y")
+pdf("Figure.pdf")
+plot(x,y,col="green")
+dev.off()
+x=seq(1,10)
+x
+x=1:10
+x
+x=seq(-pi,pi,length=50)
+y=x
+f=outer(x,y,function(x,y)cos(y)/(1+x^2))
+contour(x,y,f)
+contour(x,y,f,nlevels=45,add=T)
+fa=(f-t(f))/2
+contour(x,y,fa,nlevels=15)
+image(x,y,fa)
+persp(x,y,fa)
+persp(x,y,fa,theta=30)
+persp(x,y,fa,theta=30,phi=20)
+persp(x,y,fa,theta=30,phi=70)
+persp(x,y,fa,theta=30,phi=40)
+```
+
+## Including Plots
+You can also embed plots, for example:
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+\end{verbatim}
+
+
+\subsection{Terceiro exemplo do primeiro vídeo}
+
+\begin{verbatim}
+---
+title: "Comentários em gráficos"
+output: html_document
+---
+```{r include = FALSE}
+ #colorFunc <- "heat.colors"
+#colorFunc <- "terrain.colors"
+ colorFunc <- "topo.colors"
+#colorFunc <- "cm.colors"
+# colorFunc <- "rainbow"
+```
+Base R comes with many functions for generating colors. 
+The code below demonstrates the `r colorFunc` function. 
+## `r colorFunc`
+```{r fig.cap = "The Maunga Whau volcano.", echo = FALSE}
+image(volcano, col = get(colorFunc)(200))
+```
+\end{verbatim}
+
+\subsection{Primeiro Exemplo do sexto vídeo}
+
+\begin{verbatim}
+---
+title: "Tabelas R Markdown"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Diversos pacotes que utilizam o tratamento com tabelas
+
+* [xtable](https://cran.r-project.org/web/packages/xtable/)
+* [stargazer](https://cran.r-project.org/web/packages/stargazer/)
+* [pander](http://rapporter.github.io/pander/)
+* [tables](https://cran.r-project.org/web/packages/tables/)
+* [ascii](http://eusebe.github.io/ascii/)
+* etc.
+
+# Utilizaremos com mais frequência o pacote Knitr 
+
+```{r echo = TRUE, results = 'asis'}
+library(knitr)
+head(mtcars)
+kable(mtcars[1:5, ], caption = "A knitr kable.")
+```
+
+#### Kable PANDOC
+```{r echo = TRUE, results = 'asis'}
+
+knitr::kable(head(mtcars[, 1:4]), "pandoc")
+```
+
+#### Kable MARKDOWN
+```{r echo = TRUE, results = 'asis'}
+
+knitr::kable(head(mtcars[, 1:4]), "markdown")
+```
+
+
+#### Kable HTML
+```{r echo = TRUE, results = 'asis'}
+
+knitr::kable(mtcars[, 1:4], "html")
+```
+
+#### Alterar nomes de colunas - substitui . por ---
+```{r echo = TRUE, results = 'asis'}
+
+iris2 <- head(iris)
+knitr::kable(iris2, col.names = gsub("[.]", "---", names(iris)))
+```
+
+#### Alinhamento da coluna do título
+l(esquerda), c(centro) e r(direita)
+```{r echo = TRUE, results = 'asis'}
+
+knitr::kable(iris2, align = "lccrr")
+```
+
+
+#### Adicionar legenda
+
+```{r echo = TRUE, results = 'asis'}
+
+knitr::kable(iris2, caption = "Dados de IRIS")
+```
+
+#### Formatação de colunas numéricas
+
+```{r echo = TRUE, results = 'asis'}
+
+d <- cbind(X1 = runif(3), X2 = 10^c(3, 5, 7), X3 = rnorm(3, 
+  0, 1000))
+# at most 4 decimal places
+knitr::kable(d, digits = 4)
+```
+
+#### Formatação de colunas numéricas , difrentes digitos
+
+```{r echo = TRUE, results = 'asis'}
+
+knitr::kable(d, digits = c(5, 0, 2))
+```
+
+#### Exibição de valores ausentes
+
+```{r echo = TRUE, results = 'asis'}
+
+d[rbind(c(1, 1), c(2, 3), c(3, 2))] <- NA
+knitr::kable(d)  # NA é mostrado por padrão como valor ausente
+opts <- options(knitr.kable.NA = "")
+knitr::kable(d) # NA é trocado por vazio
+options(knitr.kable.NA = "AUSENTE")
+knitr::kable(d) # NA é trocado pela palavra AUSENTE
+```
+
+#### Formatação de caracteres especiais
+
+```{r echo = TRUE, results = 'asis'}
+
+m <- lm(dist ~ speed, data = cars)
+d <- coef(summary(m))
+knitr::kable(d)
+
+rownames(d) <- c("$\\beta_0$", "$\\beta_1$")
+colnames(d)[4] <- "$ P(T > |t|)"
+knitr::kable(d) # expressões que contêm caracteres especiais $, \, e _:
+```
+
+#### Tabelas lado a lado
+
+```{r echo = TRUE, results = 'asis'}
+
+knitr::kable(
+  list(
+    head(cars, 3),
+    head(mtcars[, 1:3], 5)
+  ),
+  caption = 'Duas tabelas lado a lado',
+  booktabs = TRUE, valign = 't'
+)
+```
+\end{verbatim}
+
+\subsection{Setimo video (apresentações de slides)}
+
+\begin{verbatim}
+---
+title: "Exemplo"
+author: Treinamento R Markdown
+output: slidy_presentation
+---
+
+#Apresentação de Dados - Sesão 1
+
+## Primeira Fase
+
+- Tópico 1
+- Tópico 2
+
+## Segunda Fase
+
+- Tópico 3
+- Tópico 4
+
+# Apresentação de Dados - Sesão 2
+
+## Terceira Fase
+
+- Tópico 5
+- Tópico 6
+
+---
+
+```{r, echo=FALSE}
+pie(rep(1, 24), col = rainbow(24), radius = 0.9)
+```
+
+## Quarta Fase
+
+- Tópico 7
+- Tópico 8
+\end{verbatim}
+
+\subsubsection{Segundo exemplo do sétimo video -- Infograficos}
+
+\begin{verbatim}
+---
+title: 'Apresentação de Infográficos '
+output:
+  revealjs::revealjs_presentation:
+  template: quarterly-report.html
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(viridis)
+```
+
+Iremos demonstrar uma série de infográficos que podem ser exibidos via slides
+
+>- Apresentação dos votos
+>- Gráfico de dispersão com pontos com carros
+>- Gráfico de dispersão 
+>- Treemap do Grupo G20
+>- Agradecimento
+ 
+
+## Apresentação dos votos
+
+```{r}
+library(waffle)
+waffle(
+  c('Yes=70%' = 70, 'No=30%' = 30), rows = 10, colors = c("#FD6F6F", "#93FB98"),
+  title = 'Responses', legend_pos="bottom"
+)
+```
+
+## Gráfico de dispersão com pontos com carros
+```{r}
+library(ggplot2)
+ggplot (mtcars)  +  
+  geom_text( aes ( mpg , wt , colour = factor ( cyl )), 
+             label =  "\uf1b9" , 
+             family =  "FontAwesome" , 
+             size =  7)
+```
+
+## Gráfico de dispersão 
+
+```{r}
+library(ggplot2)
+
+ggplot(mpg, aes(displ, hwy, colour = class)) + 
+  geom_point()
+```
+
+##  Treemap do Grupo G20
+
+```{r}
+library(ggplot2)
+library(treemapify)
+ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup = region)) +
+  geom_treemap() +
+  geom_treemap_text(grow = T, reflow = T, colour = "black") +
+  facet_wrap( ~ hemisphere) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom") +
+  labs(
+    title = "The G-20 major economies by hemisphere",
+    caption = "The area of each tile represents the country's GDP as a
+      proportion of all countries in that hemisphere",
+    fill = "Region"
+  )
+```
+
+## Agradecimento
+
+Muito obrigado 
+\end{verbatim}
+
+
+\subsection{Relatório dinâmico com dashboard}
+
+\begin{verbatim}
+
+---
+title: "Review Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+---
+
+```{r include = FALSE}
+library(viridis)
+library(ggplot2)
+library(marmap)
+```
+
+# Intro {.sidebar}
+
+This dashboard covers several topics:
+
+* The marmap package
+* The viridis package
+* Miscellaneous material
+
+# Marmap Package
+
+## Column 1
+
+### Florida
+
+```{r echo = FALSE}
+data(florida)
+autoplot(florida)
+```
+
+The [marmap](https://cran.r-project.org/web/packages/marmap/index.html) package provides tools and data for visualizing the ocean floor. Here is an example contour plot of marmap's `florida` dataset.
+
+## Column 2
+
+### Hawaii
+
+```{r echo = FALSE}
+data(hawaii)
+autoplot(hawaii)
+```
+
+### Alaska
+
+```{r echo = FALSE}
+data(aleutians)
+autoplot(aleutians)
+```
+
+
+# Viridis Package
+
+## Column 1
+
+### Viridis colors
+
+```{r fig.cap="Maunga Whao, Auckland, NZ"}
+image(volcano, col = viridis(200))
+```
+
+### Magma colors
+
+```{r fig.cap="Maunga Whao, Auckland, NZ"}
+image(volcano, col = viridis(200, option = "A"))
+```
+
+## Column 2
+
+### Inferno colors
+
+```{r fig.cap="Maunga Whao, Auckland, NZ"}
+image(volcano, col = viridis(200, option = "B"))
+```
+
+### Plasma colors
+
+```{r fig.cap="Maunga Whao, Auckland, NZ"}
+image(volcano, col = viridis(200, option = "C"))
+```
+
+# Miscellaneous
+
+## Column 1 {data-width=300}
+
+### Bash support
+
+```{r}
+x <- rnorm(200)
+hist(x)
+```
+
+***
+
+This chunk executes bash code.
+
+### Python support
+
+```{r}
+riqueza <- c(15,18,22,24,25,30,31,34,37,39,41,45)
+area.cate <- rep(c("pequeno", "grande"), each=6)
+boxplot(riqueza~area.cate)
+```
+
+***
+
+This chunk executes python code.
+
+## Column 2 {data-width=700}
+
+### Tables with Kable 
+
+```{r echo = FALSE, results = 'asis'}
+library(knitr)
+kable(mtcars[1:5, ], caption = "A knitr kable.")
+```
+
+***
+
+It is very easy to make tables with knitr's `kable` function.
+
+
+    
+\end{verbatim}
+
+
+
+
+\subsection{Relatório dinâmico com dashboard: proximo exemplo}
+
+\begin{verbatim}
+---
+title: "Apresentação Gráfica"
+output:
+  flexdashboard::flex_dashboard: default
+
+---
+# Intro {.sidebar}
+
+GRÁFICO EM DIVERSOS FORMATOS:
+
+* Gráfico Plot 
+* Gráfico Plot e COS
+* Gráfico Imagem
+
+Treinamento R Markdown - Prof. Grimaldo Oliveira
+
+-------------------------------------
+# Gráfico Plot
+
+## Column 1
+    
+###  PLOT 1
+    
+```{r}
+
+x=rnorm(100)
+y=rnorm(100)
+plot(x,y)
+
+```
+   
+# Gráfico Plot e COS
+
+## Column 2
+    
+### Grafico 2
+    
+```{r}
+plot(x,y,xlab="this is the x-axis",ylab="this is the y-axis",main="Plot of X vs Y")
+```
+    
+### Grafico 3
+
+```{r}
+x=seq(-pi,pi,length=50)
+y=x
+f=outer(x,y,function(x,y)cos(y)/(1+x^2))
+contour(x,y,f)
+```
+
+# Gráfico Imagem
+
+## Column 3
+    
+### Grafico 4
+```{r}
+x=seq(-pi,pi,length=50)
+y=x
+f=outer(x,y,function(x,y)cos(y)/(1+x^2))
+contour(x,y,f)
+contour(x,y,f,nlevels=45,add=T)
+fa=(f-t(f))/2
+contour(x,y,fa,nlevels=15)
+image(x,y,fa)
+```
+\end{verbatim}
+
+\newpage
+
+\section{R Shiny: Aprenda a construir painéis de aplicativos interativos}
+
+Aqui vc pode criar um script R normalmente e inserir:
+
+\begin{lstlisting}[language=R, caption=Primeiro Shiny App]
+###Criando meu primeiro Shiny App
+library(shiny)
+ui<-fluidPage("Meu primeiro Shiny App")
+server<-function(input,output,session){}
+
+shinyApp(ui,server)
+\end{lstlisting}
+
+Para executarmos o primeiro desafio faço:
+
+\begin{lstlisting}[language=R, caption=Solução do primeiro desafio]
+###exerciciocurso
+library(shiny)
+ui<-fluidPage("Exercitando o aprendizado")
+server<-function(input,output,session){}
+
+shinyApp(ui,server)
+\end{lstlisting}
+
+
+\subsection{Introdução a estruturas de entrada}
+
+\begin{lstlisting}[language=R,caption=Inserindo estrutura de entrada no Shiny App]
+if(interactive()) {
+    shinyApp(
+        ui <- basicPage(
+            textInput("txt", "Entre com o valor de referencia"), #Nao pode ter acentos se nao o programa nao roda
+            verbatimTextOutput("default"),
+            verbatimTextOutput("placeholder", placeholder=FALSE)
+        ),
+        server <- function(input,output) {
+            output$default <- renderText({ input$txt })
+            output$placeholder <- renderText({ input$txt })
+        }
+    )
+}
+\end{lstlisting}
+
+\subsection{Objetos input para valores de texto}
+
+\begin{lstlisting}[language=R,caption=Objetos Input para valores de texto]
+if(interactive()) {
+    shinyApp(
+        ui <- basicPage(
+            textInput("txt", "Entre com o valor de referencia"), #Nao pode ter acentos se nao o programa nao roda
+            verbatimTextOutput("default"),
+            verbatimTextOutput("placeholder", placeholder=FALSE)
+        ),
+        server <- function(input,output) {
+            output$default <- renderText({ input$txt })
+            output$placeholder <- renderText({ input$txt })
+        }
+    )
+}
+
+\end{lstlisting}
+
+\subsection{Objetos Input para valores numéricos}
+
+\begin{lstlisting}[language=R,caption=Objetos Input para valores numéricos]
+ui <- fluidPage(
+  #Objetos de entradas de texto
+  textInput("txtI", "Entre com o nome da aula"), #Nao pode ter acentos se nao o programa nao roda
+  textAreaInput("txtA", "Entre com o resumo da aula"),
+  passwordInput("txtP", "Entre com a senha"),
+  #Objetos de entradas numericas
+  sliderInput("sldI","Selecione o valor",0,10,6,2),#range de 2 em dois
+  sliderInput("sldIr","Selecione o valor",0,10,c(2,3),2),#range com limites
+  numericInput("numI","Escolha o numero",0,0,10)#escolhe os valores de 1 em um
+)
+
+server <- function(input,output){}
+
+shinyApp(ui=ui, server=server)
+
+\end{lstlisting}
+
+\subsection{Objetos Input para valores data}
+
+\begin{lstlisting}[language=R,caption=Objetos input para valores de datas]
+ui <- fluidPage(
+  #Objetos de entradas de texto
+  textInput("txtI", "Entre com o nome da aula"), #Nao pode ter acentos se nao o programa nao roda
+  textAreaInput("txtA", "Entre com o resumo da aula"),
+  passwordInput("txtP", "Entre com a senha"),
+  #Objetos de entradas numericas
+  sliderInput("sldI","Selecione o valor",0,10,6,2),#range de 2 em dois
+  sliderInput("sldIr","Selecione o valor",0,10,c(2,3),2),#range com limites
+  numericInput("numI","Escolha o numero",0,0,10),#escolhe os valores de 1 em um
+#Objetos de entradas para datas
+  dateInput("dI","Entre com a data"),
+  dateRangeInput("dR","Selecione um periodo entre as datas")
+  )
+
+server <- function(input,output){}
+
+shinyApp(ui=ui, server=server)
+\end{lstlisting}
+
+\subsection{Objetos de seleção}
+\begin{lstlisting}[language=R,caption=Objetos de seleção]
+lPaises<-c("Brasil","EUA","Colombia","Reino Unido")
+lveiculos<-c("ambulancia","onibus","carro")
+lanimais<-c("Cachorro","papagaio","piriquito","gato")
+ui<-fluidPage(selectInput("selPaises","Selecione o pais",lPaises),#dropdown paises
+              radioButtons("rdPaises","Qual o pais escolhido",lPaises),#tica o pais
+              radioButtons("rdVeiculos","Escolha o veiuclo",choiceNames=list(icon("ambulance"),icon("bus"),icon("car")),choiceValues = lveiculos),#da a opcao de escolha com os icones
+              selectInput("selveic","Escolha o veiculo",lveiculos,multiple = TRUE),#permite usuario escolher mais de uma opcao
+              checkboxGroupInput("animais","Selecione o animal",lanimais),#multipla escolha tick 
+              checkboxInput("chvotosim","Votei Sim",value=TRUE),
+              checkboxInput("chvotonao","Votei Nao")
+              )
+server<-function(input,output){}
+shinyApp(ui=ui,server=server)
+
+\end{lstlisting}
+
+
+\subsection{Objetos de upload, botão e link}
+
+\href{https://shiny.rstudio.com/articles/action-buttons.html}{Link para referencia}
+
+\begin{lstlisting}[language=R,caption=Objetos de upload, botão e link]
+library(shiny)
+ui<-fluidPage(
+            fileInput("fldados","Carregue seu arquivo para subir"),
+            actionButton("btclique","Clique aqui"),
+            actionLink("link", "Site dados App",icon=icon("github"),href="https://github.com",onclick="window.open('https://github.com','blank')")
+)
+
+server<-function(input,output){}
+shinyApp(ui=ui,server=server)
+icon()
+\end{lstlisting}
+
+
+
+\subsection{Outros Objetos de Entrada}
+
+\href{https://shiny.rstudio.com/gallery/widget-gallery.html}{Acessar a galeria do Shiny}
+
+\subsection{Desafio Prático}
+
+Vamos Praticar!
+
+1. Criar novo aplicativo Shiny;
+
+2. Inserir um Objeto Numérico, com o intervalo de dados entre "1990" e "2000", com o label "Selecione o ano". Configurar para ser possível selecionar mais de um valor;
+
+3. Inserir um Objeto Data, com o label "Selecione a Data de Inicio";
+
+4. Inserir um Objeto Texto, com o label, "Descreva os valores selecionados:"
+
+5. Salvar como "exercicio_cursoShiny" e Executar.
+
+\begin{lstlisting}[language=R,caption=Solução do desafio]
+ui <- fluidPage(
+  #Objetos de entradas numericas
+  sliderInput("sldI","Selecione o ano",1990,2000,6,2),#range de 2 em dois
+  sliderInput("sldIr","Selecione o valor",1990,2000,c(1990,1992,1994,1996,1998,2000),2),#range com limites
+  dateInput("dI","Entre com a data de inicio"),
+  textInput("txtI", "Descreva os valores selecionados")
+  )
+
+server <- function(input,output){}
+
+shinyApp(ui=ui, server=server)
+
+\end{lstlisting}
+
+\subsection{Critério de utilização Estruturas de Saída}
+
+OutputId $\Rightarrow$ Identificador único para identificar cada saída e da mesma forma deve ser único.
+
+\begin{lstlisting}[language=R,caption=Saida no server]
+server<-function(input,output,session){
+output$text<-render$Text("Hello amigos")
+}
+
+\end{lstlisting}
+
+\subsection{Objeto de Texto (textOutput)}
+
+\begin{lstlisting}[language=R,caption=Estrutura de objeto de texto saída]
+library(shiny)
+ui<-fluidPage(
+  textOutput("txtsaida"),
+  verbatimTextOutput("vbsaida")
+)
+server<-function(input,output){
+  output$txtsaida<-renderText("Meu primeiro valor no objeto de saida")
+  output$vbsaida<-renderPrint(version)
+}
+
+shinyApp(ui=ui,server=server)
+
+\end{lstlisting}
+
+
+\subsection{Objeto Tabela (tableOutput e dataTableOutput)}
+
+\begin{lstlisting}[language=R,caption=Objeto tabela, tableOutput]
+setwd("C:/Users/rodri/Desktop/RHO/Cursos online/Curso Super Academia R, linguagem R, Markdown e Shiny/Shiny")
+df<-read.csv(file="dadosbahiaglp2019.csv",header=TRUE,sep=";")
+library(shiny)
+ui<-fluidPage(
+  tableOutput("tbdados"),
+ #dataTableOutput("dtdados")
+)
+server<-function(input,output){
+  output$tbdados<-renderTable(head(df))
+ }
+shinyApp(ui,server)
+\end{lstlisting}
+
+\newpage
+
+\subsection{Plots (plotOutput)}
+
+\begin{lstlisting}[language=R,caption=Plot output]
+install.packages("ggplot2")
+library(ggplot)
+ggplot(df, aes(x=as.factor(Bandeira), fill=as.factor(Bandeira) )) + 
+  geom_bar( ) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position="none")
+
+install.packages("gapminder")
+library(gapminder)
+data <- subset(gapminder, year == 2007)
+# Most basic bubble plot
+ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
+  geom_point(alpha=0.7)
+  
+setwd("C:/Users/rodri/Desktop/RHO/Cursos online/Curso Super Academia R, linguagem R, Markdown e Shiny/Shiny")
+df<-read.csv(file="dadosbahiaglp2019.csv",header=TRUE,sep=";")
+devtools::install_github("ramnathv/htmlwidgets#351")  
+  
+library(shiny)
+ui<-fluidPage(
+  plotOutput("plot1",width="60%"),
+  plotOutput("plot2",width="90%"),
+  plotOutput("plot3",width="90%")
+)
+
+server<-function(input,output,session){
+  output$plot1<-renderPlot(plot(1:20))
+  
+  output$plot2<-renderPlot(ggplot(df, aes(x=as.factor(Bandeira), fill=as.factor(Bandeira) )) + 
+                          geom_bar( ) +
+                          scale_fill_brewer(palette = "Set1") +
+                          theme(legend.position="none"))
+  output$plot3<-renderPlot(ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
+                          geom_point(alpha=0.7))
+  }
+
+shinyApp(ui,server)
+
+\end{lstlisting}
+
+\subsection{Objeto de Download (downloadButton) e Download de Dados}
+
+\begin{lstlisting}[language=R,caption=Plot output]
+setwd("C:/Users/rodri/Desktop/RHO/Cursos online/Curso Super Academia R, linguagem R, Markdown e Shiny/Shiny")
+df<-read.csv(file="dadosbahiaglp2019.csv",header=TRUE,sep=";")
+library(shiny)
+ui<-fluidPage(
+          downloadButton("dwldarqv")
+)
+
+server<-function(input,output,session){
+    output$dwldarqv<-downloadHandler("dadosglp.csv",content=function(file){
+      write.csv(df,file)
+    })
+}
+
+shinyApp(ui,server)
+
+\end{lstlisting}
+
+\subsection{Vamos Praticar!}
+
+1. Abrir o aplicativo exercicio\_cursoShiny;
+
+2. Inserir um Objeto DE SAÍDA TEXTO";
+
+3. Inserir um Objeto DE SAÍDA TABELA";
+
+4. Desenvolva o código para o valor do Objeto de entrada Data selecionado, ser apresentado no objeto de saída TEXTO.
+
+5. Desenvolva o código para o valor do Objeto de entrada Numérico selecionado, ser apresentado no objeto de saída TABELA.
+
+5. Salvar e Executar.
+
+\begin{lstlisting}[language=R,caption=Solução do desafio]
+ui <- fluidPage(
+  #Objetos de entradas numericas
+  sliderInput("sldI","Selecione o ano",1990,2000,6,2),#range de 2 em dois
+  sliderInput("sldIr","Selecione o valor",1990,2000,c(1990,1992,1994,1996,1998,2000),2),#range com limites
+  dateInput("dI","Entre com a data de inicio"),
+  textInput("txtI", "Descreva os valores selecionados"),
+  textOutput("txtsaida"),
+  #Nao tem como subir tabela nenhuma e tentar rodar que nao faz sentido e nao funcionaria aqui
+  tableOutput("tbdados"),
+   )
+
+server <- function(input,output){
+  output$txtsaida<-renderText("Meu primeiro valor no objeto de saida")
+  output$tbdados<-renderTable(head(df))
+}
+
+shinyApp(ui=ui, server=server)
+
+\end{lstlisting}
+
+\subsection{Upload de Dados para uso no APP Shiny}
+
+\begin{lstlisting}[language=R, caption=Upload de dados no Shiny]
+library(shiny)
+ui<-fluidPage(
+          fileInput("flupload","Selecione o arquivo de dados"),
+          tableOutput("tbdados")
+)
+server<-function(input,output){
+output$tbdados<-renderTable({
+  arq<-input$flupload
+  if(is.null(arq)){
+    return(NULL)
+  }
+  read.csv(arq$datapath,header=TRUE,sep=";")
+})
+}
+
+shinyApp(ui=ui,server=server)
+#}
+
+\end{lstlisting}
+
+\subsection{Adicionando textos e elementos HTML}
+
+\begin{lstlisting}[language=R,caption=Shiny como html]
+library(shiny)
+ui<-fluidPage(
+h1("Meu primeiro app shiny"),
+h2("Aprendendo R Shiny"),
+br(),
+h3(strong("texto em negrito")),
+div("teste div", style=color:red;font-size:25px)
+)
+
+server<-function(input,output,session){}
+shinyApp(ui,server)
+\end{lstlisting}
+
+
+
+
+\subsection{Desafio Prático}
+
+Vamos Praticar!
+
+1. Abrir o aplicativo exercicio\_cursoShiny;
+
+2. Adicionar um título e subtitulo com HTML ao aplicativo;
+
+3. Adicionar um objeto de saída TABELA;
+
+4. Adicionar o objeto UPLOAD e desenvolver  a rotina para os dados ser exibido na tabela.
+
+5. Salvar e executar o APP. Carregar o arquivo "dadosbahiaglp2019.csv"(disponibilizado anteriormente) para ser exibido no APP.
+
+
+\begin{lstlisting}[language=R,caption=Solução do exercício]
+
+[por fazer]
+\end{lstlisting}
+
+
+\subsection{Introdução ao Layout de um App Shiny}
+
+\subsection{Modelo Sidebar (Barra Lateral)}
+\begin{lstlisting}[language=R,caption=]
+library(shiny)
+ui<-fluidPage(
+    titlePanel("Exemplo de painel com barra lateral"),
+    sidebarLayout(
+      sidebarPanel(
+        sliderInput("slvalores","selecione o conjunto de valores",min=0,max=100,value=c(20,60))
+      ),
+      mainPanel(plotOutput("plot"))
+    )
+)
+
+server<-function(input,output){
+          output$plot<-renderPlot(barplot(input$slvalores))
+}
+shinyApp(ui=ui,server = server)
+\end{lstlisting}
+
+\subsection{Modelo Grade (GRID)}
+
+\begin{lstlisting}[language=R,caption=App com layout grid]
+library(shiny)
+ui<-fluidPage(
+    titlePanel("Exemplo de painel com grid")
+fluidRow(fluidRow(column(4,wellPanel(sliderInput("svalores""Escolha os valores",min=1,max=200,value=c(20,180))
+                                     )
+                    ),
+        column(3,textOutput("txtvalores")
+               ), 
+        column(6,plotOutput("plot")
+    )
+  )
+)
+server<-function(input,output){
+  output$txtvalores<-renderText(input$svalores)
+  output$plot<-renderPlot(barplot(input$svalores,height=70))
+}       
+shinyApp(ui=ui,server=server)
+\end{lstlisting}
+
+\subsection{Utilizando TABSETS}
+
+\begin{lstlisting}[language=R,caption=Tabelas de dados em apps Shiny]
+
+library(shiny)
+  ui<-fluidPage(
+    titlePanel("Exemplo Painel TabSet"),
+    sidebarLayout(
+      sidebarPanel(
+             wellPanel(
+               sliderInput("slValores","Selecione o conjunto de valores",min=0,max = 100,value = c(20,60))
+             )
+      ),
+      mainPanel(
+          tabsetPanel(
+            tabPanel("plot Valores",plotOutput("plotVal")),
+            tabPanel("Sumarizados",textOutput("txtValores")),
+            tabPanel("plot Iris",plotOutput("plotIris"))
+          )
+      )
+    )
+  )
+
+
+server <- function(input, output) {
+  output$plotVal<-renderPlot(barplot(input$slValores))
+  output$txtValores<-renderText(summary(head(iris)))
+  output$plotIris<-renderPlot(plot(x=iris$Sepal.Length, y=iris$Sepal.Width, 
+                                xlab="Sepal Length", ylab="Sepal Width",  main="Sepal Length-Width"))
+}
+
+shinyApp(ui = ui, server = server)
+\end{lstlisting}
+
+
+\subsection{Vamos Praticar!}
+
+
+1. Abrir o aplicativo exercicio\_cursoShiny;
+
+2. Modifique o Painel exibindo todos os conteúdos em layout tipo Grade.
+
+3. Salvar e Executar.
+
+\subsection{Utilizando TEMAS no seu Aplicativo Shiny}
+
+\begin{lstlisting}[language=R]
+#install.packages("shinythemes")
+#flatly
+#cerulean
+#darkly
+
+library(shinythemes)
+library(shiny)
+  ui<-fluidPage(
+  theme<-shinytheme("darkly"),
+    titlePanel("Exemplo Painel TabSet"),
+    sidebarLayout(
+      sidebarPanel(
+             wellPanel(
+               sliderInput("slValores","Selecione o conjunto de valores",min=0,max = 100,value = c(20,60))
+             )
+      ),
+      mainPanel(
+          tabsetPanel(
+            tabPanel("plot Valores",plotOutput("plotVal")),
+            tabPanel("Sumarizados",textOutput("txtValores")),
+            tabPanel("plot Iris",plotOutput("plotIris"))
+          )
+      )
+    )
+  )
+
+
+server <- function(input, output) {
+  output$plotVal<-renderPlot(barplot(input$slValores))
+  output$txtValores<-renderText(summary(head(iris)))
+  output$plotIris<-renderPlot(plot(x=iris$Sepal.Length, y=iris$Sepal.Width, 
+                                xlab="Sepal Length", ylab="Sepal Width",  main="Sepal Length-Width"))
+}
+
+shinyApp(ui = ui, server = server)
+
+\end{lstlisting}
+
+\href{https://bootswatch.com/}{Link para temas Shiny:}
+
+\subsection{REATIVIDADE +PUBLICACAO APP DO SHINY COM DADOS}
+
+\begin{lstlisting}[language=R]
+library(shiny)
+library(ggplot2)
+#App não funciona pois nao da pra ver no video totalmente
+ui<-fluidPage(
+    h1("Meu app Shiny"),
+    h2("Aprendendo Shiny"),
+    sidebarLayout(
+      sidebarPanel(
+        checkboxGroupInput("chbandeira","Selecione as opções", unique(df$Bandeira),selected = c("BAHIANA","BRANCA")),
+      ),
+      mainPanel(
+                plotOutput("plot2",width = "90%"),
+        )
+      )
+    )
+server<-function(input,output,session){
+  output$plot2<-renderPlot(ggplot(subset(df,Bandeira in input$chBandeira),aes(x=as.factor(Bandeira),fill=as)))
+  geom_bar()+
+    scale_fill_brewer(palette = "Set1")+
+    theme(legend.position="none")
+  }
+    
+shinyApp(ui,server)
+
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%=====================================================
+\newpage
+%=====================================================
+
+\begin{thebibliography}{99}
+
+
+\bibitem{gujarati} Gujarati, D.,N. \textbf{Basic Econometrics}, fourth edition, McGraw-HiII/lrwin, 2003.
+
+\bibitem{overleaf} Disponível em Overleaf.com 
+
+\bibitem{xie} Xie, Y. \textbf{Dynamic Documents with R and knitr} 2nd edition, 2015.
+
+
+\end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+%===================================================
+\end{document}
